@@ -6,7 +6,6 @@ import discoverIcon from "@/assets/images/discover.png";
 import searchIcon from "@/assets/images/search.png";
 import vaultIcon from "@/assets/images/vault.png";
 import { iconSizes, layoutSizes } from "@/constants/Sizes";
-import { fonts } from "@/constants/fonts";
 import { useMainFonts } from "@/hooks/useFonts";
 
 export default function TabsLayout() {
@@ -25,7 +24,6 @@ export default function TabsLayout() {
 				options={{
 					title: "DISCOVER",
 					tabBarIcon: getDiscoverTabIcon,
-					// style: {styles.tabTitle},
 				}}
 			/>
 			<Tabs.Screen
@@ -50,7 +48,6 @@ const styles = StyleSheet.create({
 	tabBar: {
 		backgroundColor: colors.background,
 		height: layoutSizes.tabsbar,
-		borderColor: "red",
 		borderTopColor: colors.background,
 	},
 	tabItem: {
