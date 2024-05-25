@@ -2,7 +2,6 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { colors } from "@/constants/Colors";
 import { fontSizes, layoutSizes, spacingSizes } from "@/constants/Sizes";
-import { fonts } from "@/constants/fonts";
 import { useMainFonts } from "@/hooks/useFonts";
 
 function TopBar() {
@@ -17,6 +16,7 @@ export default TopBar;
 
 const styles = StyleSheet.create({
 	TopBarLayout: {
+		paddingTop: spacingSizes.topBarStatusOffset,
 		height: layoutSizes.topbar,
 		backgroundColor: colors.background,
 		alignItems: "flex-start",
