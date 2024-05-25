@@ -36,8 +36,7 @@
 			},
 			"eas": {
 				"projectId": "6e369a14-ddd3-49cc-a920-de8c1a6df891"
-			},
-			"rawgApiKey": "process.env.RAWG_API_KEY"
+			}
 		},
 		"runtimeVersion": {
 			"policy": "appVersion"
