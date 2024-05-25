@@ -1,37 +1,90 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { colors } from "@/constants/Colors";
+import { Tabs } from "expo-router";
+import { Image, ImageSourcePropType, StyleSheet } from "react-native";
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import discoverIcon from "@/assets/images/discover.png";
+import searchIcon from "@/assets/images/search.png";
+import vaultIcon from "@/assets/images/vault.png";
+import { iconSizes, layoutSizes } from "@/constants/Sizes";
+import { fonts } from "@/constants/fonts";
+import { useMainFonts } from "@/hooks/useFonts";
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+export default function TabsLayout() {
+	return (
+		<Tabs
+			screenOptions={{
+				tabBarActiveTintColor: "blue",
+				headerShown: false,
+				tabBarStyle: styles.tabBar,
+				tabBarItemStyle: styles.tabItem,
+				tabBarLabelStyle: styles.tabTitle,
+			}}
+		>
+			<Tabs.Screen
+				name="index"
+				options={{
+					title: "DISCOVER",
+					tabBarIcon: getDiscoverTabIcon,
+					// style: {styles.tabTitle},
+				}}
+			/>
+			<Tabs.Screen
+				name="search"
+				options={{
+					title: "SEARCH",
+					tabBarIcon: getSearchTabIcon,
+				}}
+			/>
+			<Tabs.Screen
+				name="vault"
+				options={{
+					title: "VAULT",
+					tabBarIcon: getVaultTabIcon,
+				}}
+			/>
+		</Tabs>
+	);
+}
 
-  return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
-        }}
-      />
-    </Tabs>
-  );
+const styles = StyleSheet.create({
+	tabBar: {
+		backgroundColor: colors.background,
+		height: layoutSizes.tabsbar,
+		borderColor: "red",
+		borderTopColor: colors.background,
+	},
+	tabItem: {
+		padding: 6,
+		gap: 8,
+	},
+	tabTitle: {
+		color: colors.textPrimary,
+		fontFamily: "bold",
+	},
+});
+
+// type TabIconProps = {
+// 	focused: boolean;
+// 	color: string;
+// 	size: number;
+// };
+
+function getDiscoverTabIcon() {
+	return getTabIcon(discoverIcon);
+}
+
+function getSearchTabIcon() {
+	return getTabIcon(searchIcon);
+}
+function getVaultTabIcon() {
+	return getTabIcon(vaultIcon);
+}
+
+function getTabIcon(source: ImageSourcePropType) {
+	return (
+		<Image
+			source={source}
+			style={{ width: iconSizes.tabIcon, height: iconSizes.tabIcon }}
+		/>
+	);
 }
