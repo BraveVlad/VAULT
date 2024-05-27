@@ -10,6 +10,7 @@ import React from "react";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { colors } from "@/constants/Colors";
 import { fonts } from "@/constants/Fonts";
+import { useRouter } from "expo-router";
 
 type GameResultViewProps = {
 	gameId: number;
@@ -19,15 +20,16 @@ type GameResultViewProps = {
 };
 
 function GameResultView({ gameId, title, imageUri }: GameResultViewProps) {
+	const router = useRouter();
+
 	function openGamePageModal() {
 		console.log(`Opening game page modal of: ${gameId}`);
+		router.push(`/game/${gameId}`);
 	}
 
 	return (
 		<Pressable style={styles.Container} onPress={openGamePageModal}>
 			<Image style={styles.Image} source={{ uri: imageUri }} />
-			{/* <Image style={styles.Image} source={imageUri} /> */}
-
 			<Text style={styles.Title}>{title}</Text>
 		</Pressable>
 	);
