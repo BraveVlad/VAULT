@@ -8,6 +8,7 @@ const large = 128;
 
 export const fontSizes = {
 	logo: big,
+	topbarBackButton: medium,
 };
 
 export const layoutSizes = {

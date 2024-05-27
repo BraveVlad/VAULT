@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { colors } from "@/constants/Colors";
 import { fontSizes, layoutSizes, spacingSizes } from "@/constants/Sizes";
@@ -16,11 +16,11 @@ export default TopBar;
 
 const styles = StyleSheet.create({
 	TopBarLayout: {
+		flexDirection: "row",
 		paddingTop: spacingSizes.topBarStatusOffset,
 		height: layoutSizes.topbar,
 		backgroundColor: colors.background,
 		alignItems: "flex-start",
-		justifyContent: "center",
 	},
 	TopBarLogo: {
 		color: colors.textPrimary,
