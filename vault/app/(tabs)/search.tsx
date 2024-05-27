@@ -1,6 +1,5 @@
 import { getMockGamesListRequest } from "@/constants/Api";
 import { mainStyles } from "@/constants/Styles";
-import { useEffect, useState } from "react";
 import {
 	StyleSheet,
 	Text,
@@ -18,7 +17,7 @@ import {
 } from "@/models/Game.Model";
 import GameslistView from "@/components/search-screen/GameslistView";
 import { useQuery } from "@tanstack/react-query";
-import refreshIcon from "@/assets/images/replay.png";
+import NetworkErrorView from "@/components/search-screen/NetworkErrorView";
 
 async function fetchGames() {
 	const request = getMockGamesListRequest();
@@ -41,17 +40,12 @@ export default function SearchScreen() {
 		<View style={mainStyles.Screen}>
 			{isLoading && <Text style={styles.loadingMessage}>loading games...</Text>}
 			{isError && (
-				<View>
-					<Text style={styles.errorMessage}>
-						Failed fetching games from server.
-					</Text>
-					<Pressable onPress={refreshList}>
-						<Image source={refreshIcon} />
-					</Pressable>
-					<ScrollView>
-						<Text style={styles.errorMessage}>{error.message}</Text>
-					</ScrollView>
-				</View>
+				<NetworkErrorView
+					clientErrorMessage="Couldn't load games."
+					debugError={error.message}
+					isShowDebugError={true}
+					onRefresh={refreshList}
+				/>
 			)}
 			{isSuccess && (
 				<View>
@@ -64,9 +58,6 @@ export default function SearchScreen() {
 }
 
 const styles = StyleSheet.create({
-	errorMessage: {
-		color: "red",
-	},
 	loadingMessage: {
 		color: "white",
 	},
