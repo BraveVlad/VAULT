@@ -1,5 +1,5 @@
 export const MOCK_RAWG_API_URL = {
-	base: "http://127.0.0.1:3000",
+	base: "http://192.168.1.43:3000",
 	gamesPerfix: `/games`,
 	singleGamePerfix: `/games/`,
 };
