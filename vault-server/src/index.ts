@@ -13,8 +13,8 @@ app.use(json());
 
 // TODO - replace with real DBs
 
-function loadGames(): ApiResponse {
-	return games;
+function loadGames() {
+	return games as ApiResponse;
 }
 
 const data = loadGames();
@@ -31,7 +31,20 @@ app.get("/games", async (_, res) => {
 
 app.get("/games/:gameId", async (req, res) => {
 	const targetGameId = req.params.gameId;
-	const targetGame = data.results;
+	const targetGame = data.results.find((game) => {
+		game.id === Number(targetGameId);
+	});
+
+	if (!targetGame) {
+		res
+			.status(204)
+			.send({
+				result: null,
+				message: `Couldn't find game with id ${targetGameId}`,
+			});
+	}
+	res.status(200);
+	res.json(targetGame);
 });
 
 async function init() {
