@@ -1,12 +1,11 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, { useEffect, useState } from "react";
-import { Redirect, useLocalSearchParams, useRouter } from "expo-router";
-import { getMockGameRequest, getMockGamesListRequest } from "@/constants/Api";
+import React from "react";
+import { Redirect, useLocalSearchParams } from "expo-router";
+import { getMockGameRequest } from "@/constants/Api";
 import axios from "axios";
 import { Game } from "@/models/Game.Model";
-import { QueryClient, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import GameResultView from "@/components/search-screen/GameResultView";
-import { colors } from "@/constants/Colors";
 import { mainStyles } from "@/constants/Styles";
 import NetworkErrorView from "@/components/search-screen/NetworkErrorView";
 
@@ -60,5 +59,3 @@ function GamePageView() {
 }
 
 export default GamePageView;
-
-const styles = StyleSheet.create({});
