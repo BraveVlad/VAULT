@@ -20,8 +20,7 @@ async function fetchGame(gameId: string): Promise<Game> {
 
 function GamePageView() {
 	const { gameId } = useLocalSearchParams<{ gameId: string }>();
-	const router = useRouter();
-	if (!gameId) {
+	if (!gameId || isNaN(Number(gameId))) {
 		return <Redirect href={"/game/NotFound"} />;
 	}
 	const { data, isLoading, isSuccess, isError, error, refetch } =
