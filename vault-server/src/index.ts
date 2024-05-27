@@ -24,27 +24,33 @@ app.get("/check", async (_, res) => {
 	res.json({ status: "Vault backened is OK" });
 });
 
-app.get("/games", async (_, res) => {
+app.get("/games", async (req, res) => {
+	console.log(`All games requested from ip: ${req.ip}`);
 	res.status(200);
 	res.json(data);
 });
 
 app.get("/games/:gameId", async (req, res) => {
-	const targetGameId = req.params.gameId;
-	const targetGame = data.results.find((game) => {
-		game.id === Number(targetGameId);
+	const rawTargetGameId = req.params.gameId;
+	console.log(`Game id ${rawTargetGameId} requested from ip: ${req.ip}`);
+	const targetGameId = Number(rawTargetGameId);
+
+	const requestedGame = data.results.find((game) => {
+		return game.id === targetGameId;
 	});
 
-	if (!targetGame) {
-		res
-			.status(204)
-			.send({
-				result: null,
-				message: `Couldn't find game with id ${targetGameId}`,
-			});
+	if (!requestedGame) {
+		res.status(204);
+		res.send({
+			result: null,
+			message: `Couldn't find game with id ${targetGameId}`,
+		});
+		return;
 	}
+
+	console.log(`Game #${targetGameId} found - ${requestedGame?.name}`);
 	res.status(200);
-	res.json(targetGame);
+	res.json(requestedGame);
 });
 
 async function init() {
