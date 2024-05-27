@@ -1,4 +1,8 @@
-import { RAWG_API_KEY, getGamesListRequest } from "@/constants/Api";
+import {
+	RAWG_API_KEY,
+	getGamesListRequest,
+	getMockGamesListRequest,
+} from "@/constants/Api";
 import { mainStyles } from "@/constants/Styles";
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
@@ -7,7 +11,8 @@ import { ApiResponse as GamesResponse, Game } from "@/models/Game.Model";
 import GameslistView from "@/components/search-screen/GameslistView";
 
 async function fetchGames() {
-	const request = getGamesListRequest(10);
+	// const request = getGamesListRequest(10);
+	const request = getMockGamesListRequest();
 
 	return axios
 		.get(request)
