@@ -45,6 +45,8 @@ export type Game = {
 	short_screenshots: Screenshot[];
 };
 
+export type Games = Game[];
+
 export type Rating = {
 	id: number;
 	title: string;

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import axios from "axios";
 import { ApiResponse as GamesResponse, Game } from "@/models/Game.Model";
+import GameslistView from "@/components/search-screen/GameslistView";
 
 async function fetchGames() {
 	const request = getGamesListRequest(10);
@@ -12,7 +13,7 @@ async function fetchGames() {
 		.get(request)
 		.then(async (response) => {
 			const gamesData = response.data;
-			console.log(gamesData);
+			// console.log(gamesData);
 			return gamesData;
 		})
 		.catch((error) => {
@@ -35,22 +36,9 @@ export default function SearchScreen() {
 	return (
 		<View style={mainStyles.Screen}>
 			<Text style={mainStyles.Text}>Total Games: {gamesList?.count}</Text>
-
-			{gamesList?.results.map((game) => (
-				<View key={game.id}>
-					<Image
-						source={{ uri: game.background_image }}
-						style={{ width: 32, height: 32 }}
-					/>
-					<Text style={mainStyles.Text}>{game.name}</Text>
-				</View>
-			))}
+			<GameslistView gamesList={gamesList?.results!} />
 		</View>
 	);
 }
 
-const styles = StyleSheet.create({
-	test: {
-		color: "red",
-	},
-});
+const styles = StyleSheet.create({});
