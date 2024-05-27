@@ -35,31 +35,6 @@ function GameslistView({ gamesList }: GameslistViewProps) {
 					);
 				}}
 			/>
-			{/* <View style={styles.GamesList}>
-				{/* {gamesList?.results.map((game) => (
-					
-				))} */}
-			{/* <GameResultView
-					key={1}
-					gameId={123}
-					title={"A very long game title name"}
-					imageUri={vaultIcon}
-				/>
-				<GameResultView
-					key={2}
-					gameId={123}
-					title={
-						"A veveryveryvery very very very veryveryveryryveryveryvery long game title name"
-					}
-					imageUri={vaultIcon}
-				/>
-				<GameResultView
-					key={3}
-					gameId={123}
-					title={"A very long game title name"}
-					imageUri={vaultIcon}
-				/>
-			</View> */}
 		</>
 	);
 }
@@ -71,10 +46,6 @@ const styles = StyleSheet.create({
 		padding: spacingSizes.screenPadding,
 		flexDirection: "row",
 		width: "100%",
-		// alignContent: "center",
-		// backgroundColor: "red",
-		// height: "100%",
-
 		flexWrap: "wrap",
 	},
 });
