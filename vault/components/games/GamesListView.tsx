@@ -16,19 +16,10 @@ import { mainStyles } from "@/constants/Styles";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import NetworkErrorView from "./NetworkErrorView";
-import { ApiResponse as GamesResponse } from "@/models/Game.Model";
-
-async function fetchGames() {
-	const request = getMockGamesListRequest();
-	return axios.get(request).then(async (response) => response.data);
-}
+import useGames from "@/hooks/useGames";
 
 function GameslistView() {
-	const { data, isLoading, isSuccess, isError, error, refetch } =
-		useQuery<GamesResponse>({
-			queryKey: ["allGames"],
-			queryFn: fetchGames,
-		});
+	const { data, isLoading, isSuccess, isError, error, refetch } = useGames();
 
 	const refreshList = () => {
 		refetch();
