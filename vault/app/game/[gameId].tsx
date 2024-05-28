@@ -5,9 +5,9 @@ import { getMockGameRequest } from "@/constants/Api";
 import axios from "axios";
 import { Game } from "@/models/Game.Model";
 import { useQuery } from "@tanstack/react-query";
-import GameResultView from "@/components/search-screen/GameResultView";
 import { mainStyles } from "@/constants/Styles";
-import NetworkErrorView from "@/components/search-screen/NetworkErrorView";
+import NetworkErrorView from "@/components/games/NetworkErrorView";
+import GamesListItemView from "@/components/games/GamesListItemView";
 
 async function fetchGame(gameId: string): Promise<Game> {
 	const request = getMockGameRequest(gameId);
@@ -17,7 +17,7 @@ async function fetchGame(gameId: string): Promise<Game> {
 	});
 }
 
-function GamePageView() {
+function SingleGameScreen() {
 	const { gameId } = useLocalSearchParams<{ gameId: string }>();
 	if (!gameId || isNaN(Number(gameId))) {
 		return <Redirect href={"/game/NotFound"} />;
@@ -48,7 +48,7 @@ function GamePageView() {
 				/>
 			)}
 			{isSuccess && (
-				<GameResultView
+				<GamesListItemView
 					gameId={data.id}
 					title={data.name}
 					imageUri={data.background_image}
@@ -58,4 +58,4 @@ function GamePageView() {
 	);
 }
 
-export default GamePageView;
+export default SingleGameScreen;

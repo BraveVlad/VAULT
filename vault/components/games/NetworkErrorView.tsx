@@ -8,7 +8,6 @@ import {
 	Image,
 } from "react-native";
 import React from "react";
-import { mainStyles } from "@/constants/Styles";
 import refreshIcon from "@/assets/images/replay.png";
 
 type NetworkErrorViewProps = {
@@ -24,14 +23,15 @@ const NetworkErrorView = ({
 	isShowDebugError,
 }: NetworkErrorViewProps) => {
 	return (
-		<View style={mainStyles.Screen}>
+		<View style={styles.mainListContainer}>
 			<Text style={styles.clientMessage}>{clientErrorMessage}</Text>
-			<Pressable onPress={onRefresh}>
-				<Image source={refreshIcon} />
+			<Pressable style={styles.refreshContainer} onPress={onRefresh}>
+				<Image style={styles.refreshIcon} source={refreshIcon} />
+				<Text style={styles.clientMessage}> Try Again</Text>
 			</Pressable>
 			{isShowDebugError && (
 				<ScrollView>
-					<Text style={styles.debugError}>{debugError}</Text>
+					<Text style={styles.debugError}>Reason: {debugError}</Text>
 				</ScrollView>
 			)}
 		</View>
@@ -41,6 +41,10 @@ const NetworkErrorView = ({
 export default NetworkErrorView;
 
 const styles = StyleSheet.create({
+	mainListContainer: {
+		alignItems: "center",
+		height: "100%",
+	},
 	clientMessage: {
 		color: "white",
 		fontFamily: "bold",
@@ -48,8 +52,13 @@ const styles = StyleSheet.create({
 	debugError: {
 		color: "red",
 	},
+	refreshContainer: {
+		flexDirection: "row",
+		alignItems: "center",
+		marginVertical: 8,
+	},
 	refreshIcon: {
-		width: 32,
-		height: 32,
+		width: 16,
+		height: 16,
 	},
 });

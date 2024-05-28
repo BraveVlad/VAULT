@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React from "react";
 import { Game, Games } from "@/models/Game.Model";
-import GameResultView from "@/components/search-screen/GameResultView";
+import GamesListItemView from "@/components/games/GamesListItemView";
 import { spacingSizes } from "@/constants/Sizes";
 import { getMockGamesListRequest } from "@/constants/Api";
 import { mainStyles } from "@/constants/Styles";
@@ -53,7 +53,7 @@ function GameslistView() {
 					keyExtractor={(item: Game) => `${item.id}`}
 					renderItem={({ item }: ListRenderItemInfo<Game>) => {
 						return (
-							<GameResultView
+							<GamesListItemView
 								gameId={item.id}
 								title={item.name}
 								imageUri={item.background_image}
