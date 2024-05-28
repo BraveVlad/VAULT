@@ -6,7 +6,6 @@ import discoverIcon from "@/assets/images/discover.png";
 import searchIcon from "@/assets/images/search.png";
 import vaultIcon from "@/assets/images/vault.png";
 import { iconSizes, layoutSizes } from "@/constants/Sizes";
-import { useMainFonts } from "@/hooks/useFonts";
 
 export default function TabsLayout() {
 	return (

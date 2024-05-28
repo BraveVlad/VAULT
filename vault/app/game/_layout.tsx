@@ -1,9 +1,7 @@
 import { Pressable, StyleSheet, Image, View } from "react-native";
 import React from "react";
-import { Slot, useRootNavigationState, useRouter } from "expo-router";
+import { Slot, useRouter } from "expo-router";
 import { mainStyles } from "@/constants/Styles";
-import { colors } from "@/constants/Colors";
-import { fontSizes } from "@/constants/Sizes";
 import closeButton from "@/assets/images/clear.png";
 const GameScreensLayout = () => {
 	const router = useRouter();
