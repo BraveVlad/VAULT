@@ -2,16 +2,15 @@
 
 ## TODOS:
 
-- [ ] query games once on app load.
+- [ ] Build app with multiple routes (including dynamics), data fetching with react-query and break to seperate components, focus on data locality.
 
-- [ ] use the same fetched data with SearchScreen, DiscoverScreen and GamePageView
+- [ ] use useMutation to update the server and invalidate queries
 
-- [ ] Add User model. It'll hold "saved games".
+- [ ] add support to a native feature (screenshot?)
 
-- [ ] Query and mutate user's saved games.
+- [ ] use initalData/placeholderData to show data in a specific query when data already exists in a more general query. 
 
-- [ ] Query and mutate user's reactions (game rating)
+- [ ] use real server instead of mocks
 
-- [ ] implement PlaceholderData/InitalData for fluent app use while main games are being fetched
+- [ ] instead of invalidating queries, perform optimistic update.
 
-- [ ] Add native Share & deeplink to a GamePageView / Profile(VaultScreen)
