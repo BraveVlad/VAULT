@@ -1,5 +1,10 @@
+import { Platform } from "react-native";
+
 export const MOCK_RAWG_API_URL = {
-	base: "http://192.168.1.43:3000",
+	base:
+		Platform.OS === "web"
+			? "http://127.0.0.1:3000"
+			: "http://192.168.1.43:3000",
 	gamesPerfix: `/games`,
 	singleGamePerfix: `/games/`,
 };
