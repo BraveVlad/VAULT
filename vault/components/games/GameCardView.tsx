@@ -14,6 +14,7 @@ import {
 import vaultIcon from "@/assets/images/vault.png";
 import discardIcon from "@/assets/images/replay.png";
 import PlatformIcon from "@/components/games/platform-icons/PlatformIcon";
+import PlatformsListView from "./PlatformsListView";
 
 export type GameCardViewProps = {
 	game: Game;
@@ -27,15 +28,7 @@ export function GameCardView({ game, style, onCardLayout }: GameCardViewProps) {
 	return (
 		<View style={[styles.card, style]} onLayout={onCardLayout}>
 			<Image style={styles.gameImage} source={{ uri: game.background_image }} />
-			<View style={styles.platforms}>
-				{game.parent_platforms.map((platform) => (
-					<PlatformIcon
-						platform={platform}
-						key={platform.platform.id}
-						style={styles.platforms__icon}
-					/>
-				))}
-			</View>
+			<PlatformsListView platforms={game.parent_platforms} />
 			<Text style={styles.gameTitle}>{game.name}</Text>
 			<View style={styles.actions}>
 				<Pressable style={styles.actions__button}>
@@ -64,18 +57,7 @@ const styles = StyleSheet.create({
 		padding: 8,
 		alignItems: "center",
 	},
-	platforms: {
-		alignSelf: "flex-start",
-		marginStart: 4,
-		flexDirection: "row",
-		marginVertical: 6,
-		gap: 6,
-	},
-	platforms__icon: {
-		width: 16,
-		height: 16,
-		resizeMode: "contain",
-	},
+
 	gameImage: {
 		width: "100%",
 		flex: 8,
