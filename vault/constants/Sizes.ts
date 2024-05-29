@@ -1,14 +1,16 @@
 const verySmall = 4;
 const small = 8;
-const medium = 16;
+const regular = 16;
+const medium = 28;
 const big = 32;
 const veryBig = 64;
-const statusBar = 86;
 const large = 128;
+const statusBar = 86;
 
 export const fontSizes = {
 	logo: big,
-	topbarBackButton: medium,
+	topbarBackButton: regular,
+	heading: medium,
 };
 
 export const layoutSizes = {
@@ -19,8 +21,8 @@ export const layoutSizes = {
 
 export const spacingSizes = {
 	topBarStatusOffset: big,
-	logoMargins: medium,
-	screenPadding: medium,
+	logoMargins: regular,
+	screenPadding: regular,
 };
 
 export const iconSizes = {

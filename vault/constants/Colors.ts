@@ -6,6 +6,7 @@ export const colors = {
 	// Background Colors
 	background: "#201C32",
 	backgroundLight: "#342E5A",
+	backgroundTint: "#292546",
 
 	// Text Colors
 	textPrimary: "#FFFFFF",

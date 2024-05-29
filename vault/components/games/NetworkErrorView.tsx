@@ -16,6 +16,7 @@ type NetworkErrorViewProps = {
 	debugError?: string;
 	isShowDebugError: boolean;
 };
+
 export default function NetworkErrorView({
 	clientErrorMessage,
 	debugError,
