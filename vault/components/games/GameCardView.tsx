@@ -1,8 +1,6 @@
 import { colors } from "@/constants/Colors";
-import { fonts } from "@/constants/Fonts";
 import { fontSizes } from "@/constants/Sizes";
 import { Game } from "@/models/Game.Model";
-import getPlatformIcon from "@/utils/getPlatformIcon";
 import {
 	View,
 	Text,
@@ -15,6 +13,8 @@ import {
 } from "react-native";
 import vaultIcon from "@/assets/images/vault.png";
 import discardIcon from "@/assets/images/replay.png";
+import PlatformIcon from "@/components/games/platform-icons/PlatformIcon";
+
 export type GameCardViewProps = {
 	game: Game;
 	style?: StyleProp<ViewStyle>;
@@ -29,10 +29,10 @@ export function GameCardView({ game, style, onCardLayout }: GameCardViewProps) {
 			<Image style={styles.gameImage} source={{ uri: game.background_image }} />
 			<View style={styles.platforms}>
 				{game.parent_platforms.map((platform) => (
-					<Image
+					<PlatformIcon
+						platform={platform}
 						key={platform.platform.id}
 						style={styles.platforms__icon}
-						source={getPlatformIcon(platform)}
 					/>
 				))}
 			</View>
