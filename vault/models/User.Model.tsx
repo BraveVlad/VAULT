@@ -1,0 +1,14 @@
+import { Game, Games } from "./Game.Model";
+
+export type VaultGame = {
+	gameId: number;
+};
+export type VaultGames = VaultGame[];
+
+export type User = {
+	username: string;
+	password: string;
+	vault: VaultGames;
+};
+
+export type Users = User[];

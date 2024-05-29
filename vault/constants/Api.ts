@@ -4,9 +4,10 @@ export const MOCK_RAWG_API_URL = {
 	base:
 		Platform.OS === "web"
 			? "http://127.0.0.1:3000"
-			: "http://192.168.1.43:3000",
+			: "http://192.168.1.222:3000",
 	gamesPerfix: `/games`,
 	singleGamePerfix: `/games/`,
+	userPerfix: `/users/`,
 };
 
 // export function getGamesListRequest(gamesCount: number, currentPage?: number) {
@@ -21,4 +22,8 @@ export function getMockGamesListRequest() {
 
 export function getMockGameRequest(gameId: string) {
 	return `${MOCK_RAWG_API_URL.base}${MOCK_RAWG_API_URL.singleGamePerfix}${gameId}`;
+}
+
+export function getMockUserRequest(username: string) {
+	return `${MOCK_RAWG_API_URL.base}${MOCK_RAWG_API_URL.userPerfix}${username}`;
 }
