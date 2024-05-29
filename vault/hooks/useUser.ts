@@ -9,8 +9,15 @@ async function fetchUser(username: string) {
 }
 
 export default function useUser(username: string) {
-	return useQuery<User>({
+	const userQuery = useQuery<User>({
 		queryKey: ["user"],
 		queryFn: () => fetchUser(username),
 	});
+
+	const isVaultEmpty = userQuery.isSuccess && userQuery.data.vault.length === 0;
+
+	return {
+		userQuery: userQuery,
+		isVaultEmpty: isVaultEmpty,
+	};
 }
