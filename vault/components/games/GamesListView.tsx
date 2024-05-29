@@ -6,7 +6,7 @@ import { spacingSizes } from "@/constants/Sizes";
 import useGames from "@/hooks/useGames";
 import NetworkErrorView from "./NetworkErrorView";
 
-function GameslistView() {
+export default function GamesListView() {
 	const { gamesQuery } = useGames();
 
 	function refreshList(): void {
@@ -46,8 +46,6 @@ function GameslistView() {
 		</>
 	);
 }
-
-export default GameslistView;
 
 const styles = StyleSheet.create({
 	GamesList: {

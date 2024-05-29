@@ -3,11 +3,9 @@ import React, { PropsWithChildren } from "react";
 import { colors } from "@/constants/Colors";
 import { layoutSizes } from "@/constants/Sizes";
 
-function MainContainer({ children }: PropsWithChildren) {
+export default function MainContainer({ children }: PropsWithChildren) {
 	return <View style={styles.MainContainer}>{children}</View>;
 }
-
-export default MainContainer;
 
 const styles = StyleSheet.create({
 	MainContainer: {

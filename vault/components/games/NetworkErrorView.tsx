@@ -16,12 +16,12 @@ type NetworkErrorViewProps = {
 	debugError?: string;
 	isShowDebugError: boolean;
 };
-const NetworkErrorView = ({
+export default function NetworkErrorView({
 	clientErrorMessage,
 	debugError,
 	onRefresh,
 	isShowDebugError,
-}: NetworkErrorViewProps) => {
+}: NetworkErrorViewProps) {
 	return (
 		<View style={styles.mainListContainer}>
 			<Text style={styles.clientMessage}>{clientErrorMessage}</Text>
@@ -36,9 +36,7 @@ const NetworkErrorView = ({
 			)}
 		</View>
 	);
-};
-
-export default NetworkErrorView;
+}
 
 const styles = StyleSheet.create({
 	mainListContainer: {

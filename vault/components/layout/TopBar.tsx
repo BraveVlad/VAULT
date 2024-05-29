@@ -4,15 +4,13 @@ import { colors } from "@/constants/Colors";
 import { fontSizes, layoutSizes, spacingSizes } from "@/constants/Sizes";
 import { useMainFonts } from "@/hooks/useFonts";
 
-function TopBar() {
+export default function TopBar() {
 	return (
 		<View style={styles.TopBarLayout}>
 			<Text style={styles.TopBarLogo}>VAULT</Text>
 		</View>
 	);
 }
-
-export default TopBar;
 
 const styles = StyleSheet.create({
 	TopBarLayout: {

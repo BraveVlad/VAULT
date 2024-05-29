@@ -19,7 +19,11 @@ type GameResultViewProps = {
 	imageUri: string;
 };
 
-function GameResultView({ gameId, title, imageUri }: GameResultViewProps) {
+export default function GameResultView({
+	gameId,
+	title,
+	imageUri,
+}: GameResultViewProps) {
 	const router = useRouter();
 
 	function openGamePageModal() {
@@ -34,8 +38,6 @@ function GameResultView({ gameId, title, imageUri }: GameResultViewProps) {
 		</Pressable>
 	);
 }
-
-export default GameResultView;
 
 const styles = StyleSheet.create({
 	Container: {

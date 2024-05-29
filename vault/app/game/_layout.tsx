@@ -3,7 +3,8 @@ import React from "react";
 import { Slot, useRouter } from "expo-router";
 import { mainStyles } from "@/constants/Styles";
 import closeButton from "@/assets/images/clear.png";
-const GameScreensLayout = () => {
+
+export default function GameScreensLayout() {
 	const router = useRouter();
 
 	function handleBackButton() {
@@ -18,9 +19,7 @@ const GameScreensLayout = () => {
 			<Slot />
 		</View>
 	);
-};
-
-export default GameScreensLayout;
+}
 
 const styles = StyleSheet.create({
 	BackButton: {

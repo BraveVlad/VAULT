@@ -4,7 +4,7 @@ import DiscoverScreen from "@/app/(tabs)";
 import { Tabs } from "expo-router";
 import { colors } from "@/constants/Colors";
 
-function TabsBar() {
+export default function TabsBar() {
 	return (
 		<Tabs
 			screenOptions={{
@@ -35,7 +35,5 @@ function TabsBar() {
 		</Tabs>
 	);
 }
-
-export default TabsBar;
 
 const styles = StyleSheet.create({});
