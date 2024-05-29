@@ -1,21 +1,10 @@
 import NetworkErrorView from "@/components/games/NetworkErrorView";
-import { getMockUserRequest } from "@/constants/Api";
 import { mainStyles } from "@/constants/Styles";
-import { User } from "@/models/User.Model";
-import { useQueries, useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import useUser from "@/hooks/useUser";
 import { StyleSheet, Text, View } from "react-native";
 
-async function fetchUser(username: string) {
-	const request = getMockUserRequest(username);
-	return axios.get(request).then(async (response) => response.data);
-}
-
 export default function VaultScreen() {
-	const userQuery = useQuery<User>({
-		queryKey: ["user"],
-		queryFn: () => fetchUser("Dracula"), // load from storage
-	});
+	const userQuery = useUser("Dracula");
 
 	function handleRefresh() {
 		userQuery.refetch();
