@@ -12,8 +12,8 @@ import refreshIcon from "@/assets/images/replay.png";
 
 type NetworkErrorViewProps = {
 	clientErrorMessage: string;
-	onRefresh: (event: GestureResponderEvent) => void;
-	debugError: string;
+	onRefresh?: (event: GestureResponderEvent) => void;
+	debugError?: string;
 	isShowDebugError: boolean;
 };
 const NetworkErrorView = ({

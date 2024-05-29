@@ -1,46 +1,36 @@
-import {
-	FlatList,
-	FlatListProps,
-	ListRenderItem,
-	ListRenderItemInfo,
-	StyleSheet,
-	Text,
-	View,
-} from "react-native";
+import { FlatList, ListRenderItemInfo, StyleSheet, Text } from "react-native";
 import React from "react";
-import { Game, Games } from "@/models/Game.Model";
+import { Game } from "@/models/Game.Model";
 import GamesListItemView from "@/components/games/GamesListItemView";
 import { spacingSizes } from "@/constants/Sizes";
-import { getMockGamesListRequest } from "@/constants/Api";
-import { mainStyles } from "@/constants/Styles";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import NetworkErrorView from "./NetworkErrorView";
 import useGames from "@/hooks/useGames";
+import NetworkErrorView from "./NetworkErrorView";
 
 function GameslistView() {
-	const { data, isLoading, isSuccess, isError, error, refetch } = useGames();
+	const { gamesQuery } = useGames();
 
-	const refreshList = () => {
-		refetch();
-	};
+	function refreshList(): void {
+		gamesQuery.refetch();
+	}
 
 	return (
 		<>
-			{isLoading && <Text style={styles.loadingMessage}>loading games...</Text>}
-			{isError && (
+			{gamesQuery.isLoading && (
+				<Text style={styles.loadingMessage}>loading games...</Text>
+			)}
+			{gamesQuery.isError && (
 				<NetworkErrorView
-					clientErrorMessage="Couldn't load games."
-					debugError={error.message}
+					clientErrorMessage="Couldn't load game data."
+					debugError={gamesQuery.error.message}
 					isShowDebugError={true}
 					onRefresh={refreshList}
 				/>
 			)}
-			{isSuccess && (
+			{gamesQuery.isSuccess && (
 				<FlatList
 					numColumns={2}
 					style={styles.GamesList}
-					data={data.results}
+					data={gamesQuery.data.results}
 					keyExtractor={(item: Game) => `${item.id}`}
 					renderItem={({ item }: ListRenderItemInfo<Game>) => {
 						return (
