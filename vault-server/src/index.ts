@@ -3,9 +3,16 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { json } from "body-parser";
-import { initConnection } from "./dbConnection";
 import { games } from "./data/games-data";
 import { ApiResponse, Games, Game } from "./models/Game.Model";
+import { users } from "./data/users-data";
+import {
+	addGameToUserVault,
+	getUser,
+	getUserVault,
+	isGameExistsInUserVault,
+} from "./models/User.Model";
+
 const app = express();
 
 app.use(cors());
@@ -53,6 +60,47 @@ app.get("/games/:gameId", async (req, res) => {
 	res.json(requestedGame);
 });
 
+app.get("/users/:username", async (req, res) => {
+	const targetUsername = req.params.username;
+	console.log(`User ${targetUsername} requested from ip: ${req.ip}`);
+
+	const targetUser = getUser(targetUsername);
+
+	if (!targetUser) {
+		res.status(204);
+		res.send({
+			result: null,
+			message: `Couldn't find user ${targetUsername}`,
+		});
+	}
+
+	console.log(`User ${targetUser?.username} found.`);
+	res.status(200);
+	res.json(targetUser);
+});
+
+app.post("/users/vault/addGame", (req, res) => {
+	const { username, gameId } = req.body;
+
+	if (!username || !gameId) {
+		res.status(400);
+		res.send({
+			error: `invalid username ${username} or game id ${gameId}`,
+		});
+	}
+
+	if (isGameExistsInUserVault(username, gameId)) {
+		res.status(400);
+		res.send({
+			error: `game #${gameId} already exists in user ${username}'s vault.`,
+		});
+	}
+
+	const updatedVault = addGameToUserVault(username, gameId);
+
+	res.status(200);
+	res.json({ message: "OK", updatedVault: updatedVault });
+});
 async function init() {
 	// await initConnection();
 	app.listen(process.env.MAIN_PORT, () =>
