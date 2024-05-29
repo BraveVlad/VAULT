@@ -8,50 +8,40 @@ import { useQuery } from "@tanstack/react-query";
 import { mainStyles } from "@/constants/Styles";
 import NetworkErrorView from "@/components/games/NetworkErrorView";
 import GamesListItemView from "@/components/games/GamesListItemView";
-
-async function fetchGame(gameId: string): Promise<Game> {
-	const request = getMockGameRequest(gameId);
-
-	return axios.get(request).then((response) => {
-		return response.data;
-	});
-}
+import useGame from "@/hooks/useGame";
+import useGameIdParam from "@/hooks/useGameIdParam";
 
 function SingleGameScreen() {
-	const { gameId } = useLocalSearchParams<{ gameId: string }>();
-	if (!gameId || isNaN(Number(gameId))) {
-		return <Redirect href={"/game/NotFound"} />;
-	}
-	const { data, isLoading, isSuccess, isError, error, refetch } =
-		useQuery<Game>({
-			queryKey: ["singleGame"],
-			queryFn: () => fetchGame(gameId),
-		});
+	const { gameId, isInvalidParam } = useGameIdParam();
 
-	if (isSuccess && !data) {
+	if (!gameId || isInvalidParam) return <Redirect href={"/game/NotFound"} />;
+
+	const { query: gameQuery, isNotFound } = useGame(gameId!);
+
+	if (isNotFound) {
 		return <Redirect href={"/game/NotFound"} />;
 	}
 
-	function refreshList(): void {
-		refetch();
+	function refresh(): void {
+		gameQuery.refetch();
 	}
 
 	return (
 		<View style={mainStyles.Screen}>
-			{isLoading && <Text>Loading game id: {gameId}...</Text>}
-			{isError && (
+			{gameQuery.isLoading && <Text>Loading game id: {gameId}...</Text>}
+			{gameQuery.isError && (
 				<NetworkErrorView
 					clientErrorMessage="Couldn't load game data."
-					debugError={error.message}
+					debugError={gameQuery.error.message}
 					isShowDebugError={true}
-					onRefresh={refreshList}
+					onRefresh={refresh}
 				/>
 			)}
-			{isSuccess && (
+			{gameQuery.isSuccess && (
 				<GamesListItemView
-					gameId={data.id}
-					title={data.name}
-					imageUri={data.background_image}
+					gameId={gameQuery.data.id}
+					title={gameQuery.data.name}
+					imageUri={gameQuery.data.background_image}
 				/>
 			)}
 		</View>
