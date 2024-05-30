@@ -5,6 +5,7 @@ import NintendoIcon from "@/components/games/platform-icons/NintendoIcon";
 import PcIcon from "@/components/games/platform-icons/PcIcon";
 import PlaystationIcon from "@/components/games/platform-icons/PlaystationIcon";
 import XboxIcon from "@/components/games/platform-icons/XboxIcon";
+import IosIcon from "@/components/games/platform-icons/IosIcon";
 import { ParentPlatform } from "@/models/Game.Model";
 import { StyleProp, ViewStyle } from "react-native";
 
@@ -34,6 +35,9 @@ export default function PlatformIcon({ platform, style }: PlatformIconProps) {
 
 		case "mac":
 			return <MacIcon style={style} />;
+
+		case "ios":
+			return <IosIcon style={style} />;
 
 		default:
 			console.error(
