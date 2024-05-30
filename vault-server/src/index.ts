@@ -72,6 +72,7 @@ app.get("/users/:username", async (req, res) => {
 			result: null,
 			message: `Couldn't find user ${targetUsername}`,
 		});
+		return;
 	}
 
 	console.log(`User ${targetUser?.username} found.`);
@@ -87,13 +88,16 @@ app.post("/users/vault/addGame", (req, res) => {
 		res.send({
 			error: `invalid username ${username} or game id ${gameId}`,
 		});
+		return;
 	}
 
 	if (isGameExistsInUserVault(username, gameId)) {
 		res.status(400);
 		res.send({
+			code: `GAME_ALREADY_EXISTS`,
 			error: `game #${gameId} already exists in user ${username}'s vault.`,
 		});
+		return;
 	}
 
 	const updatedVault = addGameToUserVault(username, gameId);
@@ -101,6 +105,7 @@ app.post("/users/vault/addGame", (req, res) => {
 	res.status(200);
 	res.json({ message: "OK", updatedVault: updatedVault });
 });
+
 async function init() {
 	// await initConnection();
 	app.listen(process.env.MAIN_PORT, () =>
