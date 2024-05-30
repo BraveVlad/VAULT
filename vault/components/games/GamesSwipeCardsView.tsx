@@ -32,6 +32,8 @@ export function GamesSwipeCardsView() {
 		setfrontCardDimensions({ width: backCardWidth, offsetY: backCardOffsetY });
 	}
 
+	function handleCardAction(gameId: number) {}
+
 	return (
 		<>
 			{gamesQuery.isLoading && (
@@ -51,6 +53,7 @@ export function GamesSwipeCardsView() {
 						style={styles.frontCard}
 						game={getRandomGame(gamesQuery.data?.results)}
 						onCardLayout={measureFrontCardLayout}
+						onCardDiscarded={handleCardAction}
 					/>
 					<GameCardView
 						style={[
