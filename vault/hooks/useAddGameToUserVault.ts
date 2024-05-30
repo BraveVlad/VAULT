@@ -4,9 +4,10 @@ import {
 	buildMockAddGameToUserVaultBody,
 } from "@/constants/Api";
 import { AddGameToVaultResponse } from "@/models/User.Model";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueries } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { ToastAndroid } from "react-native";
+import useUser from "./useUser";
 
 async function postGameToUserVault(username: string, gameId: number) {
 	const requestUri = buildMockAddGameToUserVaultUri();
@@ -16,12 +17,15 @@ async function postGameToUserVault(username: string, gameId: number) {
 }
 
 export function useAddGameToUserVault(username: string, gameId: number) {
+	const userQuery = useUser(username);
+
 	const vaultMutation = useMutation<AddGameToVaultResponse, AxiosError>({
 		mutationKey: ["AddGameToVault"],
 		mutationFn: () => postGameToUserVault(username, gameId),
 		onSuccess: (data) => {
 			console.log(`Adding game ${game.name} to user's vault is success!`);
 			console.log(data);
+			userQuery.userQuery.refetch();
 		},
 		onError: (error) => {
 			const errorData = error.response?.data as {
@@ -36,7 +40,7 @@ export function useAddGameToUserVault(username: string, gameId: number) {
 				ToastAndroid.show(messageToClient, ToastAndroid.SHORT);
 			}
 		},
-		retry: 3,
+		retry: 1,
 	});
 
 	return {
