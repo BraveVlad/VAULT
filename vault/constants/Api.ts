@@ -8,6 +8,7 @@ export const MOCK_RAWG_API_URL = {
 	gamesPerfix: `/games`,
 	singleGamePerfix: `/games/`,
 	userPerfix: `/users/`,
+	addGameToVaultPerfix: `/users/vault/addGame`,
 };
 
 // export function getGamesListRequest(gamesCount: number, currentPage?: number) {
@@ -16,14 +17,28 @@ export const MOCK_RAWG_API_URL = {
 // 	}&page_size=${gamesCount}&key=${RAWG_API_KEY}`;
 // }
 
-export function getMockGamesListRequest() {
+export function buildMockGamesListRequest() {
 	return `${MOCK_RAWG_API_URL.base}${MOCK_RAWG_API_URL.gamesPerfix}`;
 }
 
-export function getMockGameRequest(gameId: string) {
+export function buildMockGameRequest(gameId: string) {
 	return `${MOCK_RAWG_API_URL.base}${MOCK_RAWG_API_URL.singleGamePerfix}${gameId}`;
 }
 
-export function getMockUserRequest(username: string) {
+export function buildMockUserRequest(username: string) {
 	return `${MOCK_RAWG_API_URL.base}${MOCK_RAWG_API_URL.userPerfix}${username}`;
+}
+
+export function buildMockAddGameToUserVaultUri() {
+	return `${MOCK_RAWG_API_URL.base}${MOCK_RAWG_API_URL.addGameToVaultPerfix}`;
+}
+
+export function buildMockAddGameToUserVaultBody(
+	username: string,
+	gameToVaultId: number
+) {
+	return {
+		username: username,
+		gameId: gameToVaultId,
+	};
 }

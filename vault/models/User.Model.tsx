@@ -11,4 +11,9 @@ export type User = {
 	vault: VaultGames;
 };
 
+export type AddGameToVaultResponse = {
+	message: string;
+	updatedVault: VaultGames;
+};
+
 export type Users = User[];
