@@ -17,43 +17,18 @@ import {
 	buildMockAddGameToUserVaultUri,
 } from "@/constants/Api";
 import axios, { AxiosError } from "axios";
+import { useAddGameToUserVault } from "@/hooks/useAddGameToUserVault";
 type GamePageViewProps = {
 	game: Game;
 };
 
-async function postGameToUserVault(username: string, gameId: number) {
-	const requestUri = buildMockAddGameToUserVaultUri();
-	const requestBody = buildMockAddGameToUserVaultBody(username, gameId);
-	const response = await axios.post(requestUri, requestBody);
-	return response.data as AddGameToVaultResponse;
-}
-
 export default function GamePageView({ game }: GamePageViewProps) {
-	const vaultMutation = useMutation<AddGameToVaultResponse, AxiosError>({
-		mutationKey: ["AddGameToVault"],
-		mutationFn: () => postGameToUserVault("Dracula", game.id),
-		onSuccess: (data) => {
-			console.log(`Adding game ${game.name} to user's vault is success!`);
-			console.log(data);
-		},
-		onError: (error) => {
-			const errorData = error.response?.data as {
-				code: string;
-				message: string;
-			};
-			const errorCode = errorData.code;
-
-			if (errorCode === "GAME_ALREADY_EXISTS") {
-				const messageToClient = `Game ${game.name} is already in your vault!`;
-				console.log(messageToClient);
-				ToastAndroid.show(messageToClient, ToastAndroid.SHORT);
-			}
-		},
-		retry: 3,
-	});
+	const { addGameToUserVaultMutation: vaultMutation } = useAddGameToUserVault(
+		"Dracula",
+		game.id
+	);
 
 	function handleVaultGame(): void {
-		console.log(`User wants to vault game ${game.id}`);
 		vaultMutation.mutate();
 	}
 

@@ -13,17 +13,34 @@ import {
 } from "react-native";
 import vaultIcon from "@/assets/images/vault.png";
 import discardIcon from "@/assets/images/replay.png";
-import PlatformIcon from "@/components/games/platform-icons/PlatformIcon";
 import PlatformsListView from "./PlatformsListView";
+import { useAddGameToUserVault } from "@/hooks/useAddGameToUserVault";
 
 export type GameCardViewProps = {
 	game: Game;
 	style?: StyleProp<ViewStyle>;
 	onCardLayout?: (event: LayoutChangeEvent) => void;
+	onCardDiscarded?: (gameId: number) => void;
 };
 
-export function GameCardView({ game, style, onCardLayout }: GameCardViewProps) {
-	console.log(game.parent_platforms);
+export function GameCardView({
+	game,
+	style,
+	onCardLayout,
+	onCardDiscarded,
+}: GameCardViewProps) {
+	const { addGameToUserVaultMutation: vaultMutation } = useAddGameToUserVault(
+		"Dracula",
+		game.id
+	);
+	function handleDiscardGame() {
+		onCardDiscarded?.(game.id);
+	}
+
+	function handleVaultGame() {
+		console.log(`User wants to vault game ${game.id}`);
+		vaultMutation.mutate();
+	}
 
 	return (
 		<View style={[styles.card, style]} onLayout={onCardLayout}>
@@ -31,14 +48,14 @@ export function GameCardView({ game, style, onCardLayout }: GameCardViewProps) {
 			<PlatformsListView platforms={game.parent_platforms} />
 			<Text style={styles.gameTitle}>{game.name}</Text>
 			<View style={styles.actions}>
-				<Pressable style={styles.actions__button}>
+				<Pressable style={styles.actions__button} onPress={handleDiscardGame}>
 					<Image source={discardIcon} style={styles.actions__buttonImage} />
 				</Pressable>
 				<View style={styles.readMore__container}>
 					<Text style={styles.readMore__text}>READ MORE</Text>
 					<Image style={styles.readMore__icon} />
 				</View>
-				<Pressable style={styles.actions__button}>
+				<Pressable style={styles.actions__button} onPress={handleVaultGame}>
 					<Image source={vaultIcon} style={styles.actions__buttonImage} />
 				</Pressable>
 			</View>
