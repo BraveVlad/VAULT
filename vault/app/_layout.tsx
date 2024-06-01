@@ -18,7 +18,7 @@ export default function RootLayout() {
 			<QueryClientProvider client={queryClient}>
 				<TopBar />
 				<Slot />
-				<ReactQueryDevtools initialIsOpen={true} />
+				{/* <ReactQueryDevtools initialIsOpen={true} /> */}
 			</QueryClientProvider>
 		</>
 	);

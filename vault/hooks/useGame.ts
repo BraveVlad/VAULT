@@ -14,7 +14,7 @@ async function fetchGame(gameId: string): Promise<Game> {
 
 export default function useGame(gameId: string) {
 	const gameQuery = useQuery<Game>({
-		queryKey: ["singleGame"],
+		queryKey: ["games", gameId],
 		queryFn: () => fetchGame(gameId),
 	});
 

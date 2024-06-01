@@ -15,6 +15,7 @@ import vaultIcon from "@/assets/images/vault.png";
 import discardIcon from "@/assets/images/replay.png";
 import PlatformsListView from "./PlatformsListView";
 import { useAddGameToUserVault } from "@/hooks/useAddGameToUserVault";
+import useUser from "@/hooks/useUser";
 
 export type GameCardViewProps = {
 	game: Game;
@@ -29,17 +30,25 @@ export function GameCardView({
 	onCardLayout,
 	onCardDiscarded,
 }: GameCardViewProps) {
-	const { addGameToUserVaultMutation: vaultMutation } = useAddGameToUserVault(
-		"Dracula",
-		game.id
-	);
+	const { addGameToUserVaultMutation: vaultMutation } = useAddGameToUserVault();
+
+	function onCardAddedToVault() {
+		console.log("card added to vault!");
+	}
+
 	function handleDiscardGame() {
 		onCardDiscarded?.(game.id);
 	}
 
 	function handleVaultGame() {
-		console.log(`User wants to vault game ${game.id}`);
-		vaultMutation.mutate();
+		vaultMutation.mutate(
+			{ username: "Dracula", gameId: game.id },
+			{
+				onSuccess: () => {
+					onCardAddedToVault();
+				},
+			}
+		);
 	}
 
 	return (

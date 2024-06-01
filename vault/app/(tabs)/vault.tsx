@@ -29,14 +29,14 @@ export default function VaultScreen() {
 		if (!game) return <Text key={gameId}>Couldn't find game {gameId}</Text>;
 
 		return (
-			<view style={styles.vaultItem}>
+			<View style={styles.vaultItem}>
 				<GameResultView
 					key={game.id}
 					gameId={game.id}
 					title={game.name}
 					imageUri={game.background_image}
 				/>
-			</view>
+			</View>
 		);
 	}
 	return (

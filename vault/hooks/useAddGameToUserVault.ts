@@ -4,8 +4,8 @@ import {
 	buildMockAddGameToUserVaultBody,
 } from "@/constants/Api";
 import { AddGameToVaultResponse } from "@/models/User.Model";
-import { useMutation, useQueries } from "@tanstack/react-query";
-import axios, { AxiosError } from "axios";
+import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
+import axios, { AxiosError, isAxiosError } from "axios";
 import { ToastAndroid } from "react-native";
 import useUser from "./useUser";
 
@@ -16,18 +16,23 @@ async function postGameToUserVault(username: string, gameId: number) {
 	return response.data as AddGameToVaultResponse;
 }
 
-export function useAddGameToUserVault(username: string, gameId: number) {
-	const userQuery = useUser(username);
+export function useAddGameToUserVault() {
+	// const userQuery = useUser(username);
+	const queryClient = useQueryClient();
 
-	const vaultMutation = useMutation<AddGameToVaultResponse, AxiosError>({
+	const vaultMutation = useMutation({
 		mutationKey: ["AddGameToVault"],
-		mutationFn: () => postGameToUserVault(username, gameId),
+		mutationFn: ({ username, gameId }: { username: string; gameId: number }) =>
+			postGameToUserVault(username, gameId),
 		onSuccess: (data) => {
 			console.log(`Adding game ${game.name} to user's vault is success!`);
 			console.log(data);
-			userQuery.userQuery.refetch();
+			queryClient.invalidateQueries({
+				queryKey: ["user"],
+			});
 		},
 		onError: (error) => {
+			if (!isAxiosError(error)) return;
 			const errorData = error.response?.data as {
 				code: string;
 				message: string;
