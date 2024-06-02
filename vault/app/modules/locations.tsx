@@ -1,5 +1,5 @@
-import { Text, StyleSheet, View } from "react-native";
-import React, { useEffect, useState } from "react";
+import { Text, StyleSheet, View, Pressable, Image } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
 import {
 	requestForegroundPermissionsAsync,
 	LocationObject,
@@ -7,16 +7,24 @@ import {
 	getCurrentPositionAsync,
 	Accuracy,
 } from "expo-location";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { Marker, PROVIDER_GOOGLE, Circle } from "react-native-maps";
+import vaultIcon from "@/assets/images/vault.png";
+import { colors } from "@/constants/Colors";
 
-const REGION_ISRAEL = {
+const REGION_DIMONA = {
 	latitude: 31.06804890787784,
 	longitude: 35.03470162759657,
 };
 
+type Marker = {
+	latitude: number;
+	longitude: number;
+};
 export default function GeolocationView() {
 	const [location, setLocation] = useState<LocationObject>();
 	const [errorMessage, setErrorMessage] = useState<string>();
+	const mapRef = useRef<MapView>(null);
+	const [markers, setMarkers] = useState<Marker[]>([]);
 
 	function handleOnLocationChange(location: LocationObject) {
 		setLocation(location);
@@ -50,20 +58,99 @@ export default function GeolocationView() {
 
 	const message = errorMessage ? errorMessage : JSON.stringify(location);
 
+	function handleMoveToDimona() {
+		mapRef.current?.animateCamera({
+			center: {
+				latitude: REGION_DIMONA.latitude,
+				longitude: REGION_DIMONA.longitude,
+			},
+			heading: 0,
+			pitch: 90,
+			zoom: 15,
+		});
+	}
+
+	function handleMoveToUser() {
+		if (!location) return;
+		mapRef.current?.animateCamera({
+			center: {
+				latitude: location?.coords.latitude,
+				longitude: location?.coords.longitude,
+			},
+			heading: 0,
+			pitch: 90,
+			zoom: 20,
+		});
+	}
+
+	function handleCreateMarker() {}
 	return (
 		<View style={{ height: "100%", width: "100%" }}>
 			<Text>Location:</Text>
 			<Text>{message}</Text>
 			<MapView
+				ref={mapRef}
 				style={styles.map}
 				provider={PROVIDER_GOOGLE}
+				showsUserLocation={true}
+				showsMyLocationButton={true}
 				initialRegion={{
-					latitude: REGION_ISRAEL.latitude,
-					longitude: REGION_ISRAEL.longitude,
-					latitudeDelta: 1,
-					longitudeDelta: 1,
+					latitude: REGION_DIMONA.latitude,
+					longitude: REGION_DIMONA.longitude,
+					latitudeDelta: 0.05,
+					longitudeDelta: 0.05,
 				}}
-			/>
+			>
+				<Circle
+					style={{ backgroundColor: "red" }}
+					center={{
+						latitude: location
+							? location.coords.latitude + 0.0011
+							: REGION_DIMONA.latitude + 0.001,
+						longitude: location
+							? location.coords.longitude + 0.001
+							: REGION_DIMONA.longitude + 0.001,
+					}}
+					radius={50}
+					fillColor="#FD8C73"
+				/>
+				<Marker
+					coordinate={{
+						latitude: location
+							? location.coords.latitude + 0.001
+							: REGION_DIMONA.latitude + 0.001,
+						longitude: location
+							? location.coords.longitude + 0.001
+							: REGION_DIMONA.longitude + 0.001,
+					}}
+				>
+					<View
+						style={
+							{
+								// backgroundColor: colors.primary,
+								// padding: 10,
+								// borderRadius: 64,
+							}
+						}
+					>
+						<Image
+							source={{
+								uri: "https://media.rawg.io/media/games/4a0/4a0a1316102366260e6f38fd2a9cfdce.jpg",
+							}}
+							style={{ width: 32, height: 32, borderRadius: 50 }}
+						/>
+					</View>
+				</Marker>
+			</MapView>
+			<Pressable onPress={handleMoveToDimona}>
+				<Text>Reset to Dimona</Text>
+			</Pressable>
+			<Pressable onPress={handleMoveToUser}>
+				<Text>Look at me</Text>
+			</Pressable>
+			<Pressable onPress={handleCreateMarker}>
+				<Text>Create marker</Text>
+			</Pressable>
 		</View>
 	);
 }
