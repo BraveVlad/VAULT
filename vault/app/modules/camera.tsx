@@ -7,9 +7,8 @@ import {
 } from "expo-camera";
 import { Pressable, StyleSheet, Text, ToastAndroid, View } from "react-native";
 import React, { useState } from "react";
-import { BarCodeScanner } from "expo-barcode-scanner";
 
-const CameraViewScreen = () => {
+export default function CameraViewScreen() {
 	const [facing, setFacing] = useState<CameraType>("front");
 	const [scanned, setScanned] = useState(false);
 	const [scannedBarcode, setscannedBarcode] = useState<BarcodeScanningResult>();
@@ -84,8 +83,6 @@ const CameraViewScreen = () => {
 			</Text>
 		</View>
 	);
-};
-
-export default CameraViewScreen;
+}
 
 const styles = StyleSheet.create({});
