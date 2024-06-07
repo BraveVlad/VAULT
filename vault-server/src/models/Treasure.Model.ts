@@ -1,8 +1,13 @@
+import { treasures } from "../data/treasure-data";
 import { ShallowUsers } from "./User.Model";
 
+export type Coordinate = {
+	latitude: number;
+	longitude: number;
+};
+
 export type TreasureLocation = {
-	x: number;
-	y: number;
+	coordinate: Coordinate;
 	huntRadius: number;
 	revealRadius: number;
 };
