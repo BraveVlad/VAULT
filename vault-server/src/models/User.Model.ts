@@ -13,6 +13,7 @@ export type User = {
 	vault: VaultGames;
 };
 
+export type ShallowUsers = Pick<User, "username">[];
 export type Users = User[];
 
 export function getUser(username: string) {

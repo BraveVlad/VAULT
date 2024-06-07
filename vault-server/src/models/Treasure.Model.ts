@@ -1,4 +1,4 @@
-import { Users } from "./User.Model";
+import { ShallowUsers } from "./User.Model";
 
 export type TreasureLocation = {
 	x: number;
@@ -22,7 +22,7 @@ export type Treasure = {
 	qrValue: string;
 	location: TreasureLocation;
 	isLootHidden: boolean;
-	collectedUsers: Users;
+	collectors: ShallowUsers;
 	maxAvailableCollections: number;
 	loot: Loot;
 	creationDate: Date;
