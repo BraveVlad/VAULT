@@ -3,7 +3,8 @@ import { ShallowUsers } from "./User.Model";
 export type TreasureLocation = {
 	x: number;
 	y: number;
-	radius: number;
+	huntRadius: number;
+	revealRadius: number;
 };
 
 export type LootType = "DLC" | "Game" | "Skin" | "Coupon";
