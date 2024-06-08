@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 const verySmall = 4;
 const small = 8;
 const regular = 16;

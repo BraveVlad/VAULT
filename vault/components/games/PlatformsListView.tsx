@@ -1,4 +1,4 @@
-import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
+import { StyleProp, StyleSheet, View, ViewStyle } from "react-native";
 import React from "react";
 import { ParentPlatform } from "@/models/Game.Model";
 import PlatformIcon from "./platform-icons/PlatformIcon";

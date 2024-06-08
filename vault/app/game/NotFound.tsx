@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import React from "react";
 import { mainStyles } from "@/constants/Styles";
 
@@ -9,5 +9,3 @@ export default function NotFound() {
 		</View>
 	);
 }
-
-const styles = StyleSheet.create({});

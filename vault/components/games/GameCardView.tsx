@@ -15,7 +15,6 @@ import vaultIcon from "@/assets/images/vault.png";
 import discardIcon from "@/assets/images/replay.png";
 import PlatformsListView from "./PlatformsListView";
 import { useAddGameToUserVault } from "@/hooks/useAddGameToUserVault";
-import useUser from "@/hooks/useUser";
 
 export type GameCardViewProps = {
 	game: Game;

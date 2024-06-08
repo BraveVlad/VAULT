@@ -1,8 +1,7 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { colors } from "@/constants/Colors";
 import { fontSizes, layoutSizes, spacingSizes } from "@/constants/Sizes";
-import { useMainFonts } from "@/hooks/useFonts";
 
 export default function TopBar() {
 	return (
