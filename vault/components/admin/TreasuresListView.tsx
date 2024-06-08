@@ -16,16 +16,23 @@ import {
 	Image,
 } from "react-native";
 
-export default function TreasuresListView() {
+type TreasuresListViewProps = {
+	selectedTreasure: string | undefined;
+	onSelectedTreasure: (treasureId: string) => void;
+};
+
+export default function TreasuresListView({
+	selectedTreasure,
+	onSelectedTreasure,
+}: TreasuresListViewProps) {
 	const treasuresQuery = useTreasures();
-	const [selectedItemId, setSelectedItemId] = useState<String>();
 
 	function handleItemPressed(itemId: string): void {
-		setSelectedItemId(itemId);
+		onSelectedTreasure(itemId);
 	}
 
 	function renderTreasureItem({ item }: ListRenderItemInfo<Treasure>) {
-		const isCurrentItemSelected = selectedItemId === item.id;
+		const isCurrentItemSelected = selectedTreasure === item.id;
 
 		return (
 			<TreasureListViewItem
@@ -45,7 +52,7 @@ export default function TreasuresListView() {
 					data={treasuresQuery.data}
 					keyExtractor={(treasure) => treasure.id}
 					renderItem={renderTreasureItem}
-					extraData={selectedItemId}
+					extraData={selectedTreasure}
 					contentContainerStyle={{
 						gap: 8,
 						backgroundColor: colors.textPrimary,

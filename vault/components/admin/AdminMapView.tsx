@@ -17,10 +17,28 @@ const INITAL_REGION_DIMONA = {
 	longitudeDelta: 0.05,
 };
 
-export default function AdminMapView() {
+type AdminMapViewProps = {
+	selectedTreasureId: string | undefined;
+};
+export default function AdminMapView({
+	selectedTreasureId,
+}: AdminMapViewProps) {
 	const mapRef = useRef<MapView>(null);
 	const treasuresQuery = useTreasures();
 
+	useEffect(() => {
+		const selectedTreasureLocation = treasuresQuery.data?.find(
+			(treasure) => treasure.id === selectedTreasureId
+		);
+		if (!selectedTreasureLocation) return;
+
+		mapRef.current?.animateCamera({
+			center: selectedTreasureLocation.location.coordinate,
+			heading: 0,
+			pitch: 90,
+			zoom: 18,
+		});
+	}, [selectedTreasureId]);
 	return (
 		<MapView
 			ref={mapRef}
