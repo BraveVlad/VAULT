@@ -7,7 +7,6 @@ export type Coordinate = {
 
 export const DEFAULT_USERS_SEARCH_RADIUS_IN_KM = 1;
 export const MAX_USERS_SEARCH_RADIUS_IN_KM = 10;
-
 export type TreasureLocation = {
 	coordinate: Coordinate;
 	huntRadius: number;
@@ -39,8 +38,9 @@ export type Treasure = {
 
 export type Treasures = Treasure[];
 
+const RADIUS_OF_EARTH_IN_KM = 6371;
+
 function distanceBetweenTwoCoordinates(pointA: Coordinate, pointB: Coordinate) {
-	const radiusOfEarthInKm = 6371;
 	const deltaLatitude = ((pointB.latitude - pointA.latitude) * Math.PI) / 180;
 	const deltaLongitude =
 		((pointB.longitude - pointA.longitude) * Math.PI) / 180;
@@ -59,7 +59,7 @@ function distanceBetweenTwoCoordinates(pointA: Coordinate, pointB: Coordinate) {
 			Math.sqrt(greatCircleDistance),
 			Math.sqrt(1 - greatCircleDistance)
 		);
-	const distanceInKm = radiusOfEarthInKm * angularDistanceInRadians;
+	const distanceInKm = RADIUS_OF_EARTH_IN_KM * angularDistanceInRadians;
 
 	return distanceInKm;
 }
