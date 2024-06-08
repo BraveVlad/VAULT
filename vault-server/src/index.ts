@@ -4,18 +4,18 @@ import express from "express";
 import cors from "cors";
 import { json } from "body-parser";
 
-import { router as GamesRouter } from "./Games.Router";
-import { router as UsersRouter } from "./Users.Router";
-import { router as TreasuresRouter } from "./Treasures.Router";
+import { router as GameRouter } from "./Game.Router";
+import { router as UserRouter } from "./User.Router";
+import { router as TreasureRouter } from "./Treasure.Router";
 
 const app = express();
 
 app.use(cors());
 app.use(json());
 
-app.use(GamesRouter);
-app.use(UsersRouter);
-app.use(TreasuresRouter);
+app.use(GameRouter);
+app.use(UserRouter);
+app.use(TreasureRouter);
 
 // TODO - replace with real DBs
 
