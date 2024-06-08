@@ -1,12 +1,6 @@
 import { TreasureLocation } from "@/models/Treasure.Model";
 import { useEffect, useRef } from "react";
-import {
-	StyleSheet,
-	View,
-	Image,
-	ImageProps,
-	ImageSourcePropType,
-} from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Circle, Marker } from "react-native-maps";
 import vaultIcon from "@/assets/images/vault.png";
@@ -42,7 +36,7 @@ export default function AdminMapView({
 			pitch: 90,
 			zoom: 18,
 		});
-	}, [selectedTreasureId]);
+	}, [selectedTreasureId, treasuresQuery.data]);
 	return (
 		<MapView
 			ref={mapRef}
@@ -91,6 +85,7 @@ function TreasureMarkerView({
 			uri: isLootHidden ? vaultIcon : gameQuery.query.data?.background_image,
 		};
 	}
+
 	return (
 		<View>
 			<Circle
