@@ -16,4 +16,5 @@ export type AddGameToVaultResponse = {
 	updatedVault: VaultGames;
 };
 
+export type ShallowUsers = Pick<User, "username">[];
 export type Users = User[];
