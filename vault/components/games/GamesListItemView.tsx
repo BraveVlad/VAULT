@@ -1,13 +1,5 @@
-import {
-	Image,
-	ImageSourcePropType,
-	Pressable,
-	StyleSheet,
-	Text,
-	View,
-} from "react-native";
+import { Image, Pressable, StyleSheet, Text } from "react-native";
 import React from "react";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 import { colors } from "@/constants/Colors";
 import { fonts } from "@/constants/Fonts";
 import { useRouter } from "expo-router";
@@ -15,7 +7,6 @@ import { useRouter } from "expo-router";
 type GameResultViewProps = {
 	gameId: number;
 	title: string;
-	// imageUri: ImageSourcePropType;
 	imageUri: string;
 };
 
@@ -43,9 +34,7 @@ const styles = StyleSheet.create({
 	Container: {
 		width: 128,
 		alignItems: "center",
-		// flexBasis: "50%",
 		aspectRatio: 1,
-		// borderWidth: 4,
 	},
 	Image: {
 		width: 82,

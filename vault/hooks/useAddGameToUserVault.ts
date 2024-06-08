@@ -4,10 +4,9 @@ import {
 	buildMockAddGameToUserVaultBody,
 } from "@/constants/Api";
 import { AddGameToVaultResponse } from "@/models/User.Model";
-import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
-import axios, { AxiosError, isAxiosError } from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios, { isAxiosError } from "axios";
 import { ToastAndroid } from "react-native";
-import useUser from "./useUser";
 
 async function postGameToUserVault(username: string, gameId: number) {
 	const requestUri = buildMockAddGameToUserVaultUri();
@@ -17,7 +16,6 @@ async function postGameToUserVault(username: string, gameId: number) {
 }
 
 export function useAddGameToUserVault() {
-	// const userQuery = useUser(username);
 	const queryClient = useQueryClient();
 
 	const vaultMutation = useMutation({

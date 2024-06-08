@@ -1,22 +1,8 @@
-import {
-	Pressable,
-	StyleSheet,
-	Text,
-	View,
-	Image,
-	ToastAndroid,
-} from "react-native";
+import { Pressable, StyleSheet, Text, View, Image } from "react-native";
 import React from "react";
 import { Game } from "@/models/Game.Model";
 import PlatformsListView from "./PlatformsListView";
 import vaultIcon from "@/assets/images/vault.png";
-import { useMutation } from "@tanstack/react-query";
-import { AddGameToVaultResponse, User } from "@/models/User.Model";
-import {
-	buildMockAddGameToUserVaultBody,
-	buildMockAddGameToUserVaultUri,
-} from "@/constants/Api";
-import axios, { AxiosError } from "axios";
 import { useAddGameToUserVault } from "@/hooks/useAddGameToUserVault";
 type GamePageViewProps = {
 	game: Game;
@@ -51,7 +37,6 @@ export default function GamePageView({ game }: GamePageViewProps) {
 				</Text>
 			</View>
 		</View>
-		// TODO - Add screenshots and videos.
 	);
 }
 const styles = StyleSheet.create({

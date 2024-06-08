@@ -8,8 +8,6 @@ import {
 	Accuracy,
 } from "expo-location";
 import MapView, { Marker, PROVIDER_GOOGLE, Circle } from "react-native-maps";
-import vaultIcon from "@/assets/images/vault.png";
-import { colors } from "@/constants/Colors";
 
 const REGION_DIMONA = {
 	latitude: 31.06804890787784,
@@ -24,7 +22,6 @@ export default function GeolocationView() {
 	const [location, setLocation] = useState<LocationObject>();
 	const [errorMessage, setErrorMessage] = useState<string>();
 	const mapRef = useRef<MapView>(null);
-	const [markers, setMarkers] = useState<Marker[]>([]);
 
 	function handleOnLocationChange(location: LocationObject) {
 		setLocation(location);
@@ -124,15 +121,7 @@ export default function GeolocationView() {
 							: REGION_DIMONA.longitude + 0.001,
 					}}
 				>
-					<View
-						style={
-							{
-								// backgroundColor: colors.primary,
-								// padding: 10,
-								// borderRadius: 64,
-							}
-						}
-					>
+					<View>
 						<Image
 							source={{
 								uri: "https://media.rawg.io/media/games/4a0/4a0a1316102366260e6f38fd2a9cfdce.jpg",
