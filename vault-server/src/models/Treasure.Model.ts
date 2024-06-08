@@ -1,4 +1,3 @@
-import { treasures } from "../data/treasure-data";
 import { ShallowUsers } from "./User.Model";
 
 export type Coordinate = {
@@ -36,3 +35,22 @@ export type Treasure = {
 };
 
 export type Treasures = Treasure[];
+
+function distanceBetweenTwoPoints(pointA: Coordinate, pointB: Coordinate) {
+	const deltaOfLatitude = pointA.latitude - pointB.latitude;
+	const deltaOfLongitude = pointA.longitude - pointB.longitude;
+	return Math.abs(Math.hypot(deltaOfLatitude, deltaOfLongitude));
+}
+export function findTreasuresByDistance(
+	treasures: Treasures,
+	targetLocation: Coordinate,
+	searchRadius: number
+): Treasures {
+	return treasures.filter((treasure) => {
+		const distance = distanceBetweenTwoPoints(
+			treasure.location.coordinate,
+			targetLocation
+		);
+		return distance <= searchRadius;
+	});
+}
