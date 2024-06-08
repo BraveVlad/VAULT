@@ -10,7 +10,7 @@ export const MAX_USERS_SEARCH_RADIUS_IN_KM = 10;
 
 export type TreasureLocation = {
 	coordinate: Coordinate;
-	huntRadius: number;
+	huntRadiusInKm: number;
 };
 
 export type LootType = "DLC" | "Game" | "Skin" | "Coupon";
