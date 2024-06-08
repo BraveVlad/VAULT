@@ -1,7 +1,9 @@
+import { colors } from "@/constants/Colors";
 import useGame from "@/hooks/useGame";
 import { Treasure, Treasures } from "@/models/Treasure.Model";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useState } from "react";
 import {
 	View,
 	Text,
@@ -23,9 +25,22 @@ export default function TreasuresListView() {
 		queryKey: ["AllTreasures"],
 		queryFn: fetchAllTreasuresAsync,
 	});
+	const [selectedItemId, setSelectedItemId] = useState<String>();
+
+	function handleItemPressed(itemId: string): void {
+		setSelectedItemId(itemId);
+	}
 
 	function renderTreasureItem({ item }: ListRenderItemInfo<Treasure>) {
-		return <TreasureListViewItem treasure={item} />;
+		const isCurrentItemSelected = selectedItemId === item.id;
+
+		return (
+			<TreasureListViewItem
+				treasure={item}
+				isSelected={isCurrentItemSelected}
+				onItemPressed={handleItemPressed}
+			/>
+		);
 	}
 
 	return (
@@ -37,6 +52,7 @@ export default function TreasuresListView() {
 					data={allTreasuresQuery.data}
 					keyExtractor={(treasure) => treasure.id}
 					renderItem={renderTreasureItem}
+					extraData={selectedItemId}
 				/>
 			)}
 		</View>
@@ -45,13 +61,22 @@ export default function TreasuresListView() {
 
 type TreasureListViewItemProps = {
 	treasure: Treasure;
+	isSelected: boolean;
+	onItemPressed: (id: string) => void;
 };
 
-function TreasureListViewItem({ treasure }: TreasureListViewItemProps) {
+function TreasureListViewItem({
+	treasure,
+	isSelected,
+	onItemPressed,
+}: TreasureListViewItemProps) {
 	const lootGame = useGame(treasure.loot.relatedGameId.toString());
 
 	return (
-		<Pressable>
+		<Pressable
+			style={isSelected ? styles.SelectedItem : undefined}
+			onPress={() => onItemPressed(treasure.id)}
+		>
 			<Text>ID: {treasure.id}</Text>
 			<Text>Loot:</Text>
 			<View style={styles.TreasureLoot__View}>
@@ -67,9 +92,12 @@ function TreasureListViewItem({ treasure }: TreasureListViewItemProps) {
 
 const styles = StyleSheet.create({
 	TreasureList: {
-		height: "25%",
+		height: 250,
 	},
 	TreasureItem: {},
+	SelectedItem: {
+		backgroundColor: colors.secondary,
+	},
 	TreasureLoot__View: {
 		flexDirection: "row",
 		gap: 8,
