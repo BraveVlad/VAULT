@@ -9,6 +9,7 @@ export const MOCK_RAWG_API_URL = {
 	singleGamePerfix: `/games/`,
 	userPerfix: `/users/`,
 	addGameToVaultPerfix: `/users/vault/addGame`,
+	allTreasuresPerfix: `/treasures`,
 };
 
 // export function getGamesListRequest(gamesCount: number, currentPage?: number) {
@@ -41,4 +42,8 @@ export function buildMockAddGameToUserVaultBody(
 		username: username,
 		gameId: gameToVaultId,
 	};
+}
+
+export function buildMockAllTreasuresUri() {
+	return `${MOCK_RAWG_API_URL.base}${MOCK_RAWG_API_URL.allTreasuresPerfix}`;
 }
