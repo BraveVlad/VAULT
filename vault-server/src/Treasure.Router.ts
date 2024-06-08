@@ -35,7 +35,11 @@ router.get("/treasures/nearby", (req, res) => {
 		coordinate,
 		searchRadius
 	);
+	const treasuresNearbyCount = treasuresNearby.length;
 
 	res.status(200);
-	return res.json(treasuresNearby);
+	return res.json({
+		count: treasuresNearbyCount,
+		treasures: treasuresNearby,
+	});
 });
