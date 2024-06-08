@@ -54,3 +54,17 @@ export function findTreasuresByDistance(
 		return distance <= searchRadius;
 	});
 }
+
+export function isTreasureCollectable(treasure: Treasure) {
+	return treasure.collectors.length < treasure.maxAvailableCollections;
+}
+
+export function filterTreasuresByIsCollectable(
+	treasures: Treasures
+): Treasures {
+	return treasures.filter((treasure) => isTreasureCollectable(treasure));
+}
+
+export function filterTreasuresByGameId(treasures: Treasures, gameId: number) {
+	return treasures.filter((treasure) => treasure.loot.relatedGameId === gameId);
+}
