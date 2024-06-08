@@ -7,10 +7,10 @@ export type Coordinate = {
 
 export const DEFAULT_USERS_SEARCH_RADIUS_IN_KM = 1;
 export const MAX_USERS_SEARCH_RADIUS_IN_KM = 10;
+
 export type TreasureLocation = {
 	coordinate: Coordinate;
 	huntRadius: number;
-	revealRadius: number;
 };
 
 export type LootType = "DLC" | "Game" | "Skin" | "Coupon";
@@ -63,6 +63,7 @@ function distanceBetweenTwoCoordinates(pointA: Coordinate, pointB: Coordinate) {
 
 	return distanceInKm;
 }
+
 export function findTreasuresByDistance(
 	treasures: Treasures,
 	targetLocation: Coordinate,
