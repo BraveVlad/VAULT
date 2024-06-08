@@ -2,7 +2,7 @@ import AdminMapView from "@/components/admin/AdminMapView";
 import TreasuresListView from "@/components/admin/TreasuresListView";
 import { mainStyles } from "@/constants/Styles";
 import { useState } from "react";
-import { View } from "react-native";
+import { Platform, View } from "react-native";
 
 export default function AdminScreen() {
 	const [selectedTreasure, setSelectedTreasure] = useState<
@@ -18,7 +18,9 @@ export default function AdminScreen() {
 				selectedTreasure={selectedTreasure}
 				onSelectedTreasure={handleSelectedTreasure}
 			/>
-			<AdminMapView selectedTreasureId={selectedTreasure} />
+			{Platform.OS !== "web" && (
+				<AdminMapView selectedTreasureId={selectedTreasure} />
+			)}
 		</View>
 	);
 }
