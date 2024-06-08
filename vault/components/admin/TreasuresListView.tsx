@@ -9,9 +9,15 @@ async function fetchAllTreasuresAsync() {
 }
 
 export default function TreasuresListView() {
+	const allTreasuresQuery = useQuery({
+		queryKey: ["AllTreasures"],
+		queryFn: fetchAllTreasuresAsync,
+	});
+
 	return (
 		<View>
-			<Text>Treasures List View</Text>
+			{allTreasuresQuery.isLoading && <Text>Loading all treasures...</Text>}
+			<Text>{JSON.stringify(allTreasuresQuery.data)}</Text>
 		</View>
 	);
 }
