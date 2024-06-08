@@ -7,9 +7,53 @@ export const treasures: Treasures = [
 		qrValue: "QR111213",
 		location: {
 			coordinate: { latitude: 31.0672, longitude: 35.0325 }, // Dimona, Israel
-			huntRadiusInKm: 2,
+			huntRadiusInKm: 20,
 		},
 		isLootHidden: true,
+		collectors: [],
+		maxAvailableCollections: 10,
+		loot: {
+			id: "loot11",
+			relatedGameId: 3498,
+			lootImage: "https://example.com/images/loot11.png",
+			type: "Skin",
+			coupon: "GIFTSKIN12345",
+			isRedeemed: false,
+		},
+		creationDate: new Date("2024-05-01T00:00:00Z"),
+		expireDate: new Date("2024-08-31T23:59:59Z"),
+	},
+
+	{
+		id: "treasure150",
+		qrValue: "QR111213",
+		location: {
+			coordinate: { latitude: 31.073915, longitude: 35.028071 }, // Dimona, Israel
+			huntRadiusInKm: 20,
+		},
+		isLootHidden: false,
+		collectors: [],
+		maxAvailableCollections: 10,
+		loot: {
+			id: "loot11",
+			relatedGameId: 3498,
+			lootImage: "https://example.com/images/loot11.png",
+			type: "Skin",
+			coupon: "GIFTSKIN12345",
+			isRedeemed: false,
+		},
+		creationDate: new Date("2024-05-01T00:00:00Z"),
+		expireDate: new Date("2024-08-31T23:59:59Z"),
+	},
+
+	{
+		id: "treasure153",
+		qrValue: "QR111213",
+		location: {
+			coordinate: { latitude: 31.060148, longitude: 35.020476 }, // Dimona, Israel
+			huntRadiusInKm: 50,
+		},
+		isLootHidden: false,
 		collectors: [],
 		maxAvailableCollections: 10,
 		loot: {
