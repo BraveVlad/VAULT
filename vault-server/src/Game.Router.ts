@@ -14,7 +14,7 @@ const data = loadGames();
 router.get("/games", async (req, res) => {
 	console.log(`All games requested from ip: ${req.ip}`);
 	res.status(200);
-	res.json(data);
+	return res.json(data);
 });
 
 router.get("/games/:gameId", async (req, res) => {
@@ -28,14 +28,13 @@ router.get("/games/:gameId", async (req, res) => {
 
 	if (!requestedGame) {
 		res.status(204);
-		res.send({
+		return res.send({
 			result: null,
 			message: `Couldn't find game with id ${targetGameId}`,
 		});
-		return;
 	}
 
 	console.log(`Game #${targetGameId} found - ${requestedGame?.name}`);
 	res.status(200);
-	res.json(requestedGame);
+	return res.json(requestedGame);
 });

@@ -10,7 +10,7 @@ export const router = Router();
 router.get("/treasures", async (req, res) => {
 	console.log(`All treasyres requested from ip: ${req.ip}`);
 	res.status(200);
-	res.json(treasures);
+	return res.json(treasures);
 });
 
 router.get("/treasures/nearby", (req, res) => {
@@ -18,7 +18,7 @@ router.get("/treasures/nearby", (req, res) => {
 
 	if (!longitude || !latitude) {
 		res.status(400);
-		res.send(`Please specify coordinates to search treasures nearby.`);
+		return res.send(`Please specify coordinates to search treasures nearby.`);
 	}
 
 	const coordinate = {
@@ -37,5 +37,5 @@ router.get("/treasures/nearby", (req, res) => {
 	);
 
 	res.status(200);
-	res.json(treasuresNearby);
+	return res.json(treasuresNearby);
 });

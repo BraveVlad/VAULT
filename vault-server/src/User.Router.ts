@@ -15,16 +15,15 @@ router.get("/users/:username", async (req, res) => {
 
 	if (!targetUser) {
 		res.status(204);
-		res.send({
+		return res.send({
 			result: null,
 			message: `Couldn't find user ${targetUsername}`,
 		});
-		return;
 	}
 
 	console.log(`User ${targetUser?.username} found.`);
 	res.status(200);
-	res.json(targetUser);
+	return res.json(targetUser);
 });
 
 router.post("/users/vault/addGame", (req, res) => {
@@ -32,23 +31,21 @@ router.post("/users/vault/addGame", (req, res) => {
 
 	if (!username || !gameId) {
 		res.status(400);
-		res.send({
+		return res.send({
 			error: `invalid username ${username} or game id ${gameId}`,
 		});
-		return;
 	}
 
 	if (isGameExistsInUserVault(username, gameId)) {
 		res.status(400);
-		res.send({
+		return res.send({
 			code: `GAME_ALREADY_EXISTS`,
 			error: `game #${gameId} already exists in user ${username}'s vault.`,
 		});
-		return;
 	}
 
 	const updatedVault = addGameToUserVault(username, gameId);
 
 	res.status(200);
-	res.json({ message: "OK", updatedVault: updatedVault });
+	return res.json({ message: "OK", updatedVault: updatedVault });
 });
