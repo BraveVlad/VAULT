@@ -1,3 +1,4 @@
+import { Treasures } from "@/models/Treasure.Model";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { View, Text } from "react-native";
@@ -5,11 +6,11 @@ import { View, Text } from "react-native";
 async function fetchAllTreasuresAsync() {
 	const request = "http://127.0.0.1:3000/treasures";
 	const result = await axios.get(request);
-	return result.data;
+	return result.data as Treasures;
 }
 
 export default function TreasuresListView() {
-	const allTreasuresQuery = useQuery({
+	const allTreasuresQuery = useQuery<Treasures>({
 		queryKey: ["AllTreasures"],
 		queryFn: fetchAllTreasuresAsync,
 	});
@@ -17,7 +18,9 @@ export default function TreasuresListView() {
 	return (
 		<View>
 			{allTreasuresQuery.isLoading && <Text>Loading all treasures...</Text>}
-			<Text>{JSON.stringify(allTreasuresQuery.data)}</Text>
+			{allTreasuresQuery.isSuccess && (
+				<Text>{JSON.stringify(allTreasuresQuery.data[0])}</Text>
+			)}
 		</View>
 	);
 }
