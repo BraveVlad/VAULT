@@ -6,6 +6,7 @@ import { json } from "body-parser";
 
 import { router as GamesRouter } from "./Games.Router";
 import { router as UsersRouter } from "./Users.Router";
+import { router as TreasuresRouter } from "./Treasures.Router";
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(json());
 
 app.use(GamesRouter);
 app.use(UsersRouter);
+app.use(TreasuresRouter);
 
 // TODO - replace with real DBs
 
