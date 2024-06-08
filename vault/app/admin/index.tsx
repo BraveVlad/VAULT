@@ -1,3 +1,4 @@
+import AdminMapView from "@/components/admin/AdminMapView";
 import TreasuresListView from "@/components/admin/TreasuresListView";
 import { mainStyles } from "@/constants/Styles";
 import { View, Text } from "react-native";
@@ -7,6 +8,7 @@ export default function AdminScreen() {
 		<View style={mainStyles.AdminScreen}>
 			<Text> Welcome to admin page!</Text>
 			<TreasuresListView />
+			<AdminMapView />
 		</View>
 	);
 }
