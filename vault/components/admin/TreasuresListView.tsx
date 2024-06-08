@@ -1,6 +1,7 @@
 import { buildMockAllTreasuresUri } from "@/constants/Api";
 import { colors } from "@/constants/Colors";
 import useGame from "@/hooks/useGame";
+import { useTreasures } from "@/hooks/useTreasures";
 import { Treasure, Treasures } from "@/models/Treasure.Model";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -15,17 +16,8 @@ import {
 	Image,
 } from "react-native";
 
-async function fetchAllTreasuresAsync() {
-	const request = buildMockAllTreasuresUri();
-	const result = await axios.get(request);
-	return result.data as Treasures;
-}
-
 export default function TreasuresListView() {
-	const allTreasuresQuery = useQuery<Treasures>({
-		queryKey: ["AllTreasures"],
-		queryFn: fetchAllTreasuresAsync,
-	});
+	const treasuresQuery = useTreasures();
 	const [selectedItemId, setSelectedItemId] = useState<String>();
 
 	function handleItemPressed(itemId: string): void {
@@ -46,11 +38,11 @@ export default function TreasuresListView() {
 
 	return (
 		<View>
-			{allTreasuresQuery.isLoading && <Text>Loading all treasures...</Text>}
-			{allTreasuresQuery.isSuccess && (
+			{treasuresQuery.isLoading && <Text>Loading all treasures...</Text>}
+			{treasuresQuery.isSuccess && (
 				<FlatList
 					style={styles.TreasureList}
-					data={allTreasuresQuery.data}
+					data={treasuresQuery.data}
 					keyExtractor={(treasure) => treasure.id}
 					renderItem={renderTreasureItem}
 					extraData={selectedItemId}
