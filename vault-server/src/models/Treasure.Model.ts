@@ -5,6 +5,9 @@ export type Coordinate = {
 	longitude: number;
 };
 
+export const DEFAULT_USERS_SEARCH_RADIUS_IN_KM = 1;
+export const MAX_USERS_SEARCH_RADIUS_IN_KM = 10;
+
 export type TreasureLocation = {
 	coordinate: Coordinate;
 	huntRadius: number;
