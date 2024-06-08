@@ -1,3 +1,4 @@
+import { buildMockAllTreasuresUri } from "@/constants/Api";
 import { colors } from "@/constants/Colors";
 import useGame from "@/hooks/useGame";
 import { Treasure, Treasures } from "@/models/Treasure.Model";
@@ -15,7 +16,7 @@ import {
 } from "react-native";
 
 async function fetchAllTreasuresAsync() {
-	const request = "http://127.0.0.1:3000/treasures";
+	const request = buildMockAllTreasuresUri();
 	const result = await axios.get(request);
 	return result.data as Treasures;
 }
@@ -53,6 +54,13 @@ export default function TreasuresListView() {
 					keyExtractor={(treasure) => treasure.id}
 					renderItem={renderTreasureItem}
 					extraData={selectedItemId}
+					contentContainerStyle={{
+						gap: 8,
+						backgroundColor: colors.textPrimary,
+						padding: 8,
+						justifyContent: "center",
+					}}
+					numColumns={2}
 				/>
 			)}
 		</View>
@@ -74,16 +82,25 @@ function TreasureListViewItem({
 
 	return (
 		<Pressable
-			style={isSelected ? styles.SelectedItem : undefined}
+			style={[
+				styles.TreasureItem,
+				isSelected ? styles.SelectedItem : undefined,
+			]}
 			onPress={() => onItemPressed(treasure.id)}
 		>
 			<Text>ID: {treasure.id}</Text>
 			<Text>Loot:</Text>
 			<View style={styles.TreasureLoot__View}>
-				<Image
-					style={styles.TreasureLoot__Image}
-					source={{ uri: lootGame.query.data?.background_image }}
-				/>
+				{!lootGame.query.data?.background_image ? (
+					""
+				) : (
+					<Image
+						style={styles.TreasureLoot__Image}
+						source={{
+							uri: lootGame.query.data?.background_image,
+						}}
+					/>
+				)}
 				<Text>{lootGame.query.data?.name}</Text>
 			</View>
 		</Pressable>
@@ -94,7 +111,11 @@ const styles = StyleSheet.create({
 	TreasureList: {
 		height: 250,
 	},
-	TreasureItem: {},
+	TreasureItem: {
+		flexBasis: "50%",
+		borderWidth: 1,
+		borderColor: colors.backgroundLight,
+	},
 	SelectedItem: {
 		backgroundColor: colors.secondary,
 	},
