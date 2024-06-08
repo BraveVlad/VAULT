@@ -5,6 +5,10 @@ import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Circle, Marker } from "react-native-maps";
 import vaultIcon from "@/assets/images/vault.png";
 import { useTreasures } from "@/hooks/useTreasures";
+import useGames from "@/hooks/useGames";
+import { Game } from "@/models/Game.Model";
+import useGame from "@/hooks/useGame";
+import { colors } from "@/constants/Colors";
 
 const INITAL_REGION_DIMONA = {
 	latitude: 31.06804890787784,
@@ -34,9 +38,9 @@ export default function AdminMapView() {
 			{treasuresQuery.isSuccess &&
 				treasuresQuery.data.map((treasure) => (
 					<TreasureMarkerView
-						id={treasure.id}
+						key={treasure.id}
+						gameId={treasure.loot.relatedGameId}
 						isLootHidden={treasure.isLootHidden}
-						lootImage={treasure.loot.lootImage}
 						location={treasure.location}
 					/>
 				))}
@@ -52,24 +56,16 @@ export default function AdminMapView() {
 */
 
 type TreasureMarkerViewProps = {
-	id: string;
+	gameId: number;
 	isLootHidden: boolean;
-	lootImage: string;
 	location: TreasureLocation;
 };
 function TreasureMarkerView({
-	id,
+	gameId,
 	isLootHidden,
-	lootImage,
 	location,
 }: TreasureMarkerViewProps) {
-	const [markerImage, setMarkerImage] = useState<string>("");
-
-	useEffect(() => {
-		const imageUri = isLootHidden ? vaultIcon : lootImage;
-
-		setMarkerImage(imageUri);
-	}, [markerImage]);
+	const gameQuery = useGame(gameId.toString());
 
 	return (
 		<View>
@@ -80,14 +76,25 @@ function TreasureMarkerView({
 					longitude: location.coordinate.longitude,
 				}}
 				radius={location.huntRadiusInKm}
-				fillColor="#FD8C73"
+				fillColor={colors.treasureRadiusBackground}
 			/>
 			<Marker coordinate={location.coordinate}>
 				<Image
-					source={{
-						uri: markerImage,
+					source={
+						isLootHidden || !gameQuery.query.data?.background_image
+							? vaultIcon
+							: {
+									uri: isLootHidden
+										? vaultIcon
+										: gameQuery.query.data?.background_image,
+							  }
+					}
+					style={{
+						width: 32,
+						height: 32,
+						borderRadius: 50,
+						backgroundColor: colors.background,
 					}}
-					style={{ width: 32, height: 32, borderRadius: 50 }}
 				/>
 			</Marker>
 		</View>
@@ -100,46 +107,3 @@ const styles = StyleSheet.create({
 		aspectRatio: 1 / 1,
 	},
 });
-
-/*
-{/* <Circle
-				style={{ backgroundColor: "red" }}
-				center={{
-					latitude: location
-						? location.coords.latitude + 0.0011
-						: REGION_DIMONA.latitude + 0.001,
-					longitude: location
-						? location.coords.longitude + 0.001
-						: REGION_DIMONA.longitude + 0.001,
-				}}
-				radius={50}
-				fillColor="#FD8C73"
-			/> 
-			{/* <Marker
-					coordinate={{
-						latitude: location
-							? location.coords.latitude + 0.001
-							: REGION_DIMONA.latitude + 0.001,
-						longitude: location
-							? location.coords.longitude + 0.001
-							: REGION_DIMONA.longitude + 0.001,
-					}}
-				> 
-			{/* <View
-						style={
-							{
-								// backgroundColor: colors.primary,
-								// padding: 10,
-								// borderRadius: 64,
-							}
-						}
-					>
-						<Image
-							source={{
-								uri: "https://media.rawg.io/media/games/4a0/4a0a1316102366260e6f38fd2a9cfdce.jpg",
-							}}
-							style={{ width: 32, height: 32, borderRadius: 50 }}
-						/> 
-			{/* </View> 
-			{/* </Marker> 
-*/
