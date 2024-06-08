@@ -1,5 +1,3 @@
-import { Game, Games } from "./Game.Model";
-
 export type VaultGame = {
 	gameId: number;
 };
