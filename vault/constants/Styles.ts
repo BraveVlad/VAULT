@@ -8,6 +8,11 @@ export const mainStyles = StyleSheet.create({
 		backgroundColor: colors.background,
 		padding: spacingSizes.screenPadding,
 	},
+	AdminScreen: {
+		height: "100%",
+		backgroundColor: colors.primary,
+		padding: spacingSizes.screenPadding,
+	},
 	Text: {
 		color: colors.textPrimary,
 	},
