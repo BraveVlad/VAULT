@@ -1,13 +1,8 @@
 import { Text, View } from "react-native";
 import React from "react";
-import { Redirect, useLocalSearchParams } from "expo-router";
-import { buildMockGameRequest } from "@/constants/Api";
-import axios from "axios";
-import { Game } from "@/models/Game.Model";
-import { queryOptions, useQuery } from "@tanstack/react-query";
+import { Redirect } from "expo-router";
 import { mainStyles } from "@/constants/Styles";
 import NetworkErrorView from "@/components/games/NetworkErrorView";
-import GamesListItemView from "@/components/games/GamesListItemView";
 import useGame from "@/hooks/useGame";
 import useGameIdParam from "@/hooks/useGameIdParam";
 import GamePageView from "@/components/games/GamePageView";

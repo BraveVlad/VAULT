@@ -14,10 +14,6 @@ const REGION_DIMONA = {
 	longitude: 35.03470162759657,
 };
 
-type Marker = {
-	latitude: number;
-	longitude: number;
-};
 export default function GeolocationView() {
 	const [location, setLocation] = useState<LocationObject>();
 	const [errorMessage, setErrorMessage] = useState<string>();
