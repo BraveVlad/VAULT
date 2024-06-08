@@ -31,7 +31,16 @@ export default function AdminMapView({ treasures }: AdminMapViewProps) {
 				latitudeDelta: INITAL_REGION_DIMONA.latitudeDelta,
 				longitudeDelta: INITAL_REGION_DIMONA.longitudeDelta,
 			}}
-		></MapView>
+		>
+			{treasures.map((treasure) => (
+				<TreasureMarkerView
+					id={treasure.id}
+					isLootHidden={treasure.isLootHidden}
+					lootImage={treasure.loot.lootImage}
+					location={treasure.location}
+				/>
+			))}
+		</MapView>
 	);
 }
 
