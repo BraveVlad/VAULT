@@ -39,10 +39,29 @@ export type Treasure = {
 
 export type Treasures = Treasure[];
 
-function distanceBetweenTwoPoints(pointA: Coordinate, pointB: Coordinate) {
-	const deltaOfLatitude = pointA.latitude - pointB.latitude;
-	const deltaOfLongitude = pointA.longitude - pointB.longitude;
-	return Math.abs(Math.hypot(deltaOfLatitude, deltaOfLongitude));
+function distanceBetweenTwoCoordinates(pointA: Coordinate, pointB: Coordinate) {
+	const radiusOfEarthInKm = 6371;
+	const deltaLatitude = ((pointB.latitude - pointA.latitude) * Math.PI) / 180;
+	const deltaLongitude =
+		((pointB.longitude - pointA.longitude) * Math.PI) / 180;
+	const pointALatitudeInRadians = (pointA.latitude * Math.PI) / 180;
+	const pointBLatitudeInRadians = (pointB.latitude * Math.PI) / 180;
+
+	const greatCircleDistance =
+		Math.sin(deltaLatitude / 2) * Math.sin(deltaLatitude / 2) +
+		Math.sin(deltaLongitude / 2) *
+			Math.sin(deltaLongitude / 2) *
+			Math.cos(pointALatitudeInRadians) *
+			Math.cos(pointBLatitudeInRadians);
+	const angularDistanceInRadians =
+		2 *
+		Math.atan2(
+			Math.sqrt(greatCircleDistance),
+			Math.sqrt(1 - greatCircleDistance)
+		);
+	const distanceInKm = radiusOfEarthInKm * angularDistanceInRadians;
+
+	return distanceInKm;
 }
 export function findTreasuresByDistance(
 	treasures: Treasures,
@@ -50,7 +69,7 @@ export function findTreasuresByDistance(
 	searchRadius: number
 ): Treasures {
 	return treasures.filter((treasure) => {
-		const distance = distanceBetweenTwoPoints(
+		const distance = distanceBetweenTwoCoordinates(
 			treasure.location.coordinate,
 			targetLocation
 		);
