@@ -5,8 +5,7 @@ import { View, Text } from "react-native";
 
 export default function AdminScreen() {
 	return (
-		<View style={mainStyles.AdminScreen}>
-			<Text> Welcome to admin page!</Text>
+		<View style={[mainStyles.AdminScreen, { gap: 6 }]}>
 			<TreasuresListView />
 			<AdminMapView />
 		</View>
