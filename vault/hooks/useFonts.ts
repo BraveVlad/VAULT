@@ -5,7 +5,7 @@ import fontRegular from "@expo-google-fonts/josefin-sans/JosefinSans_400Regular.
 import fontBold from "@expo-google-fonts/josefin-sans/JosefinSans_700Bold.ttf";
 
 export const useMainFonts = () => {
-	let [fontsLoaded] = useFonts({
+	const [fontsLoaded] = useFonts({
 		thin: fontThin,
 		regular: fontRegular,
 		bold: fontBold,
