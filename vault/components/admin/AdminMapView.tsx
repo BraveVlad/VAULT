@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Circle, Marker } from "react-native-maps";
 import vaultIcon from "@/assets/images/vault.png";
+import { useTreasures } from "@/hooks/useTreasures";
 
 const INITAL_REGION_DIMONA = {
 	latitude: 31.06804890787784,
@@ -12,11 +13,9 @@ const INITAL_REGION_DIMONA = {
 	longitudeDelta: 0.05,
 };
 
-type AdminMapViewProps = {
-	treasures: Treasures;
-};
-export default function AdminMapView({ treasures }: AdminMapViewProps) {
+export default function AdminMapView() {
 	const mapRef = useRef<MapView>(null);
+	const treasuresQuery = useTreasures();
 
 	return (
 		<MapView
@@ -32,17 +31,25 @@ export default function AdminMapView({ treasures }: AdminMapViewProps) {
 				longitudeDelta: INITAL_REGION_DIMONA.longitudeDelta,
 			}}
 		>
-			{treasures.map((treasure) => (
-				<TreasureMarkerView
-					id={treasure.id}
-					isLootHidden={treasure.isLootHidden}
-					lootImage={treasure.loot.lootImage}
-					location={treasure.location}
-				/>
-			))}
+			{treasuresQuery.isSuccess &&
+				treasuresQuery.data.map((treasure) => (
+					<TreasureMarkerView
+						id={treasure.id}
+						isLootHidden={treasure.isLootHidden}
+						lootImage={treasure.loot.lootImage}
+						location={treasure.location}
+					/>
+				))}
 		</MapView>
 	);
 }
+
+/*
+{treasuresQuery.isSuccess &&
+				treasuresQuery.data.map((treasure) => {
+					;
+				})}
+*/
 
 type TreasureMarkerViewProps = {
 	id: string;
