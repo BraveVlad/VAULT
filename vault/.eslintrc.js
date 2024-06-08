@@ -11,5 +11,7 @@ module.exports = {
 	ignorePatterns: ["dist", ".eslintrc.cjs"],
 	parser: "@typescript-eslint/parser",
 	plugins: ["@tanstack/query"],
-	rules: {},
+	rules: {
+		"import/no-unresolved": "off",
+	},
 };
