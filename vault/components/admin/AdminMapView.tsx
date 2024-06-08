@@ -1,6 +1,12 @@
 import { TreasureLocation } from "@/models/Treasure.Model";
 import { useEffect, useRef } from "react";
-import { StyleSheet, View, Image } from "react-native";
+import {
+	StyleSheet,
+	View,
+	Image,
+	ImageProps,
+	ImageSourcePropType,
+} from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Circle, Marker } from "react-native-maps";
 import vaultIcon from "@/assets/images/vault.png";
@@ -76,6 +82,15 @@ function TreasureMarkerView({
 }: TreasureMarkerViewProps) {
 	const gameQuery = useGame(gameId.toString());
 
+	function handleMarkerImageSource() {
+		const isShowHiddenLootImage =
+			isLootHidden || !gameQuery.query.data?.background_image;
+		if (isShowHiddenLootImage) return vaultIcon;
+
+		return {
+			uri: isLootHidden ? vaultIcon : gameQuery.query.data?.background_image,
+		};
+	}
 	return (
 		<View>
 			<Circle
@@ -89,15 +104,7 @@ function TreasureMarkerView({
 			/>
 			<Marker coordinate={location.coordinate}>
 				<Image
-					source={
-						isLootHidden || !gameQuery.query.data?.background_image
-							? vaultIcon
-							: {
-									uri: isLootHidden
-										? vaultIcon
-										: gameQuery.query.data?.background_image,
-							  }
-					}
+					source={handleMarkerImageSource()}
 					style={{
 						width: 32,
 						height: 32,
