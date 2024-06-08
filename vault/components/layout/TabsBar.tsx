@@ -1,6 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import DiscoverScreen from "@/app/(tabs)";
 import { Tabs } from "expo-router";
 import { colors } from "@/constants/Colors";
 
@@ -35,5 +33,3 @@ export default function TabsBar() {
 		</Tabs>
 	);
 }
-
-const styles = StyleSheet.create({});

@@ -2,7 +2,6 @@ import { buildMockGameRequest } from "@/constants/Api";
 import axios from "axios";
 import { Game } from "@/models/Game.Model";
 import { useQuery } from "@tanstack/react-query";
-import NetworkErrorView from "@/components/games/NetworkErrorView";
 
 async function fetchGame(gameId: string): Promise<Game> {
 	const request = buildMockGameRequest(gameId);

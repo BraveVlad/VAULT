@@ -71,8 +71,6 @@ export function GamesSwipeCardsView() {
 	);
 }
 
-const frontCardWidth = 90;
-
 const styles = StyleSheet.create({
 	loadingMessage: {
 		color: "white",

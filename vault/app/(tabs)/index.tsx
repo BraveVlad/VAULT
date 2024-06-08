@@ -1,5 +1,4 @@
 import { GamesSwipeCardsView } from "@/components/games/GamesSwipeCardsView";
-import NetworkErrorView from "@/components/games/NetworkErrorView";
 import { mainStyles } from "@/constants/Styles";
 import { router } from "expo-router";
 import { Pressable, Text, View } from "react-native";

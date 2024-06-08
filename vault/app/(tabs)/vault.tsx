@@ -3,7 +3,6 @@ import NetworkErrorView from "@/components/games/NetworkErrorView";
 import { mainStyles } from "@/constants/Styles";
 import useGames from "@/hooks/useGames";
 import useUser from "@/hooks/useUser";
-import { Game } from "@/models/Game.Model";
 import { VaultGame } from "@/models/User.Model";
 import {
 	FlatList,

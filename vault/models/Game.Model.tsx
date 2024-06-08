@@ -31,7 +31,7 @@ export type Game = {
 	playtime: number;
 	suggestions_count: number;
 	updated: string;
-	user_game: any;
+	user_game: unknown;
 	reviews_count: number;
 	saturated_color: string;
 	dominant_color: string;
@@ -39,7 +39,7 @@ export type Game = {
 	parent_platforms: ParentPlatform[];
 	genres: Genre[];
 	stores: StoreInfo[];
-	clip: any;
+	clip: unknown;
 	tags: Tag[];
 	esrb_rating: EsrbRating;
 	short_screenshots: Screenshot[];

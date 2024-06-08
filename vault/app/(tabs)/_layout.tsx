@@ -59,12 +59,6 @@ const styles = StyleSheet.create({
 	},
 });
 
-// type TabIconProps = {
-// 	focused: boolean;
-// 	color: string;
-// 	size: number;
-// };
-
 function getDiscoverTabIcon() {
 	return getTabIcon(discoverIcon);
 }
