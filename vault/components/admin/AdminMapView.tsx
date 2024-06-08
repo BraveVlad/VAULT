@@ -1,12 +1,10 @@
-import { TreasureLocation, Treasures } from "@/models/Treasure.Model";
-import { useEffect, useRef, useState } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { TreasureLocation } from "@/models/Treasure.Model";
+import { useEffect, useRef } from "react";
+import { StyleSheet, View, Image } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import { Circle, Marker } from "react-native-maps";
 import vaultIcon from "@/assets/images/vault.png";
 import { useTreasures } from "@/hooks/useTreasures";
-import useGames from "@/hooks/useGames";
-import { Game } from "@/models/Game.Model";
 import useGame from "@/hooks/useGame";
 import { colors } from "@/constants/Colors";
 
@@ -65,13 +63,6 @@ export default function AdminMapView({
 		</MapView>
 	);
 }
-
-/*
-{treasuresQuery.isSuccess &&
-				treasuresQuery.data.map((treasure) => {
-					;
-				})}
-*/
 
 type TreasureMarkerViewProps = {
 	gameId: number;

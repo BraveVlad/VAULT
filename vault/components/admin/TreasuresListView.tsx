@@ -1,11 +1,7 @@
-import { buildMockAllTreasuresUri } from "@/constants/Api";
 import { colors } from "@/constants/Colors";
 import useGame from "@/hooks/useGame";
 import { useTreasures } from "@/hooks/useTreasures";
-import { Treasure, Treasures } from "@/models/Treasure.Model";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import { useState } from "react";
+import { Treasure } from "@/models/Treasure.Model";
 import {
 	View,
 	Text,

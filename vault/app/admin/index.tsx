@@ -2,7 +2,7 @@ import AdminMapView from "@/components/admin/AdminMapView";
 import TreasuresListView from "@/components/admin/TreasuresListView";
 import { mainStyles } from "@/constants/Styles";
 import { useState } from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 
 export default function AdminScreen() {
 	const [selectedTreasure, setSelectedTreasure] = useState<
