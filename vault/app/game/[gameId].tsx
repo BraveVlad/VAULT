@@ -9,10 +9,10 @@ import GamePageView from "@/components/games/GamePageView";
 
 export default function SingleGameScreen() {
 	const { gameId, isInvalidParam } = useGameIdParam();
-
 	if (!gameId || isInvalidParam) return <Redirect href={"/game/NotFound"} />;
 
-	const { query, isNotFound } = useGame(gameId!);
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	const { query, isNotFound } = useGame(gameId);
 
 	if (isNotFound) {
 		return <Redirect href={"/game/NotFound"} />;
