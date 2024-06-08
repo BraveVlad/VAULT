@@ -20,6 +20,8 @@ export const colors = {
 	warning: "#F15555",
 	error: "#F81010",
 
+	// Map Colors
+	treasureRadiusBackground: "rgba(116, 241, 85, 0.5)",
 	// Shadow Colors
 	// shadow: "#000000",
 	// shadowLight: "rgba(0, 0, 0, 0.1)",

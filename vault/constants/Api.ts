@@ -4,11 +4,12 @@ export const MOCK_RAWG_API_URL = {
 	base:
 		Platform.OS === "web"
 			? "http://127.0.0.1:3000"
-			: "http://192.168.1.222:3000",
+			: `http://192.168.1.43:3000`,
 	gamesPerfix: `/games`,
 	singleGamePerfix: `/games/`,
 	userPerfix: `/users/`,
 	addGameToVaultPerfix: `/users/vault/addGame`,
+	allTreasuresPerfix: `/treasures`,
 };
 
 // export function getGamesListRequest(gamesCount: number, currentPage?: number) {
@@ -41,4 +42,8 @@ export function buildMockAddGameToUserVaultBody(
 		username: username,
 		gameId: gameToVaultId,
 	};
+}
+
+export function buildMockAllTreasuresUri() {
+	return `${MOCK_RAWG_API_URL.base}${MOCK_RAWG_API_URL.allTreasuresPerfix}`;
 }

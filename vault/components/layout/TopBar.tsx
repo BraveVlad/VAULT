@@ -1,12 +1,17 @@
 import { StyleSheet, Text, View } from "react-native";
+
 import React from "react";
 import { colors } from "@/constants/Colors";
 import { fontSizes, layoutSizes, spacingSizes } from "@/constants/Sizes";
+import { useSegments } from "expo-router";
 
 export default function TopBar() {
+	const page = useSegments();
+	const isAdminPage = page.find((name) => name === "admin");
+
 	return (
 		<View style={styles.TopBarLayout}>
-			<Text style={styles.TopBarLogo}>VAULT</Text>
+			<Text style={styles.TopBarLogo}>VAULT {isAdminPage ? "ADMIN" : ""}</Text>
 		</View>
 	);
 }
