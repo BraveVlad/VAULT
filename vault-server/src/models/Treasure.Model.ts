@@ -67,14 +67,14 @@ function distanceBetweenTwoCoordinates(pointA: Coordinate, pointB: Coordinate) {
 export function findTreasuresByDistance(
 	treasures: Treasures,
 	targetLocation: Coordinate,
-	searchRadius: number
+	searchRadiusInKm: number
 ): Treasures {
 	return treasures.filter((treasure) => {
 		const distance = distanceBetweenTwoCoordinates(
 			treasure.location.coordinate,
 			targetLocation
 		);
-		return distance <= searchRadius;
+		return distance <= searchRadiusInKm;
 	});
 }
 
