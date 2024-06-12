@@ -90,9 +90,7 @@ export function filterTreasuresByGameId(
 	});
 }
 
-export function isValidCoordinate(
-	coordinate: unknown
-): coordinate is Coordinate {
+export function isCoordinate(coordinate: unknown): coordinate is Coordinate {
 	if (!(typeof coordinate === "object" && coordinate !== null)) {
 		return false;
 	}
@@ -102,14 +100,16 @@ export function isValidCoordinate(
 	const isLongitudeExists =
 		"longitude" in coordinate && typeof coordinate.longitude === "number";
 
-	if (!isLatitudeExists || !isLongitudeExists) return false;
+	return isLatitudeExists && isLongitudeExists;
+}
 
-	const validCoordinate = coordinate as Coordinate;
+export function isValidCoordinate(coordinate: unknown) {
+	if (!isCoordinate(coordinate)) return false;
 
 	const isLatitudeValid =
-		validCoordinate.latitude >= -90 && validCoordinate.latitude <= 90;
+		coordinate.latitude >= -90 && coordinate.latitude <= 90;
 	const isLongitudeValid =
-		validCoordinate.longitude >= -180 && validCoordinate.longitude <= 180;
+		coordinate.longitude >= -180 && coordinate.longitude <= 180;
 
 	return isLatitudeValid && isLongitudeValid;
 }
