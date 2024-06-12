@@ -8,6 +8,7 @@ export type Coordinate = {
 
 export const DEFAULT_USERS_SEARCH_RADIUS_IN_KM = 1;
 export const MAX_USERS_SEARCH_RADIUS_IN_KM = 10;
+export const MIN_DISTANCE_BETWEEN_TREASURES_IN_KM = 1;
 
 export type TreasureLocation = {
 	coordinate: Coordinate;
