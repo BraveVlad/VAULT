@@ -103,7 +103,9 @@ export function isCoordinate(coordinate: unknown): coordinate is Coordinate {
 	return isLatitudeExists && isLongitudeExists;
 }
 
-export function isValidCoordinate(coordinate: unknown) {
+export function isValidCoordinate(
+	coordinate: Coordinate
+): coordinate is Coordinate {
 	if (!isCoordinate(coordinate)) return false;
 
 	const isLatitudeValid =
