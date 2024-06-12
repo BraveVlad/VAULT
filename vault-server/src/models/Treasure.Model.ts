@@ -89,3 +89,27 @@ export function filterTreasuresByGameId(
 		return treasureLoot?.relatedGameId === gameId;
 	});
 }
+
+export function isValidCoordinate(
+	coordinate: unknown
+): coordinate is Coordinate {
+	if (!(typeof coordinate === "object" && coordinate !== null)) {
+		return false;
+	}
+
+	const isLatitudeExists =
+		"latitude" in coordinate && typeof coordinate.latitude === "number";
+	const isLongitudeExists =
+		"longitude" in coordinate && typeof coordinate.longitude === "number";
+
+	if (!isLatitudeExists || !isLongitudeExists) return false;
+
+	const validCoordinate = coordinate as Coordinate;
+
+	const isLatitudeValid =
+		validCoordinate.latitude >= -90 && validCoordinate.latitude <= 90;
+	const isLongitudeValid =
+		validCoordinate.longitude >= -180 && validCoordinate.longitude <= 180;
+
+	return isLatitudeValid && isLongitudeValid;
+}
