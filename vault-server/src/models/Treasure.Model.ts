@@ -1,3 +1,4 @@
+import { Loot } from "./Loot.Model";
 import { ShallowUsers } from "./User.Model";
 
 export type Coordinate = {
@@ -11,17 +12,6 @@ export const MAX_USERS_SEARCH_RADIUS_IN_KM = 10;
 export type TreasureLocation = {
 	coordinate: Coordinate;
 	huntRadiusInKm: number;
-};
-
-export type LootType = "DLC" | "Game" | "Skin" | "Coupon";
-
-export type Loot = {
-	id: string;
-	relatedGameId: number;
-	lootImage: string;
-	type: LootType;
-	coupon?: string;
-	isRedeemed: boolean;
 };
 
 export type Treasure = {
