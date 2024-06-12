@@ -13,6 +13,6 @@ export type Loot = {
 
 export type Loots = Loot[];
 
-export function getLootsById(loots: Loots, lootId: LootId) {
+export function getLootById(loots: Loots, lootId: LootId) {
 	return loots.find((loot) => loot.id === lootId);
 }

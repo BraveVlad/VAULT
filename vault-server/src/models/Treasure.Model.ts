@@ -1,4 +1,4 @@
-import { Loot, LootId } from "./Loot.Model";
+import { Loot, LootId, Loots, getLootById } from "./Loot.Model";
 import { ShallowUsers } from "./User.Model";
 
 export type Coordinate = {
@@ -78,6 +78,13 @@ export function filterTreasuresByIsCollectable(
 	return treasures.filter((treasure) => isTreasureCollectable(treasure));
 }
 
-export function filterTreasuresByGameId(treasures: Treasures, gameId: number) {
-	return treasures.filter((treasure) => treasure.loot.relatedGameId === gameId);
+export function filterTreasuresByGameId(
+	treasures: Treasures,
+	loots: Loots,
+	gameId: number
+) {
+	return treasures.filter((treasure) => {
+		const treasureLoot = getLootById(loots, treasure.loot);
+		return treasureLoot?.relatedGameId === gameId;
+	});
 }
