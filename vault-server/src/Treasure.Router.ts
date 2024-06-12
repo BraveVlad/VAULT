@@ -2,6 +2,7 @@ import { Router } from "express";
 import { treasures } from "./data/treasure-data";
 import {
 	DEFAULT_USERS_SEARCH_RADIUS_IN_KM,
+	MIN_DISTANCE_BETWEEN_TREASURES_IN_KM,
 	findTreasuresByDistance,
 	isValidCoordinate,
 } from "./models/Treasure.Model";
@@ -51,13 +52,30 @@ router.post("/treasures/new", (req, res) => {
 	if (!coordinate || !isValidCoordinate(coordinate)) {
 		res.status(400);
 		return res.send({
-			error: `invalid coordinate ${JSON.stringify(coordinate)}`,
+			error: `INVALID_PARAMS`,
+			message: `Invalid coordinate ${JSON.stringify(coordinate)}`,
 		});
 	}
-	const latitude = coordinate.latitude;
-	const longitude = coordinate.longitude;
+
+	const treasuresNearby = findTreasuresByDistance(
+		treasures,
+		coordinate,
+		MIN_DISTANCE_BETWEEN_TREASURES_IN_KM
+	);
+
+	const amountOfTreasuresNearby = treasuresNearby.length;
+
+	if (amountOfTreasuresNearby > 0) {
+		res.status(400);
+		return res.send({
+			error: `TOO_CLOSE_TO_OTHER_TREASURES`,
+			message: `Unable to create treasure at lat:${coordinate.latitude} long:${coordinate.longitude}, there are ${amountOfTreasuresNearby} treasures nearby.`,
+		});
+	}
 
 	res
 		.status(200)
-		.send(`New treasure created at lat:${latitude} long:${longitude}.`);
+		.send(
+			`New treasure created at lat:${coordinate.latitude} long:${coordinate.longitude}.`
+		);
 });
