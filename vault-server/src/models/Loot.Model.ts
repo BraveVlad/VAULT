@@ -1,7 +1,9 @@
 export type LootType = "DLC" | "Game" | "Skin" | "Coupon";
 
+export type lootId = string;
+
 export type Loot = {
-	id: string;
+	id: lootId;
 	relatedGameId: number;
 	lootImage: string;
 	type: LootType;
