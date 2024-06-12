@@ -1,4 +1,4 @@
-import { Loot, lootId } from "./Loot.Model";
+import { Loot, LootId } from "./Loot.Model";
 import { ShallowUsers } from "./User.Model";
 
 export type Coordinate = {
@@ -21,7 +21,7 @@ export type Treasure = {
 	isLootHidden: boolean;
 	collectors: ShallowUsers;
 	maxAvailableCollections: number;
-	loot: lootId;
+	loot: LootId;
 	creationDate: Date;
 	expireDate: Date;
 };
